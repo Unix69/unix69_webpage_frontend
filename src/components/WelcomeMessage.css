@@ -1,0 +1,50 @@
+
+.welcome-chat-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.welcome-chat-card {
+  max-width: 1600px;
+  background: #f4f6f8;
+  border-radius: 14px;
+  padding: 24px 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  position: relative;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.welcome-chat-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #1f2933;
+}
+
+
+.welcome-chat-body {
+  line-height: 1.65;
+  color: #374151;
+  margin-bottom: 18px;
+  font-size: 1.2rem;
+}
+
+.welcome-chat-footer {
+  font-size: 1.3rem;
+  color: #374151;
+  font-weight: 500;
+  padding-top: 12px;
+}
+
+.welcome-chat-card::after {
+  content: "";
+  position: absolute;
+  left: 28px;
+  bottom: -12px;
+  width: 0;
+  height: 0;
+  border-top: 12px solid #f4f6f8;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+}

@@ -1,0 +1,65 @@
+
+.header-main-info {
+    width: 100%;
+    padding: 0px 0px 0px 0px;
+    margin: 24px 0px 0px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.header-main-info-contact-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: auto;
+}
+
+.header-main-info-contact-label {
+    margin: 0 16px 0 0;
+    color: #f9b930;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #000, -1px 1px 2px #000, 1px -1px 2px #000, -1px -1px 2px #000;
+}
+
+.header-main-info-github-info, .header-main-info-telegram-info, .header-main-info-gmail-info {
+    margin: 0px 8px 4px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+.header-main-info-github-logo, .header-main-info-telegram-logo {
+    border-radius: 10px 10px 10px 10px;
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.header-main-info-gmail-logo {
+    border-radius: 10px 10px 10px 10px;
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.header-main-info-github-logo:hover, .header-main-info-telegram-logo:hover, .header-main-info-gmail-logo:hover {
+    transform: scale(1.15);
+    box-shadow: 2px 8px 16px #00000000;
+}
+
+
+
+
+.header-main-info-github-url {
+    text-decoration-line: none;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+.header-main-info-github-pages-url {
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    color: black;
+    text-decoration-line: none;
+}
+

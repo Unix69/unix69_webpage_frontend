@@ -1,0 +1,200 @@
+/* ------------------ GRID PRINCIPALE ------------------ */
+.repos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+
+/* ------------------ CARD ------------------ */
+.repo-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ffffff;
+  color: #1f2937;
+  display: flex;
+  flex-direction: column;
+  align-items: left; /* left orizzontalmente */
+  text-align: left;  /* left testi */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;         /* niente sottolineatura */
+  padding: 16px;                 /* padding interno per contenuto */
+  
+}
+
+.repo-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.repo-card a,
+.repo-card a:link,
+.repo-card a:visited,
+.repo-card a:hover,
+.repo-card a:active {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  color: inherit;
+}
+
+/* ------------------ COVER ------------------ */
+.repo-cover {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  background: #dbeafe;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.repo-cover-placeholder {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: bold;
+  color: #ffffff;
+  text-transform: uppercase;
+  background: #60a5fa;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+/* ------------------ HEADER ------------------ */
+.repo-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+
+
+
+
+.repo-owner-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #d1d5db;
+}
+
+.repo-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1d4ed8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;  /* limite larghezza nome */
+}
+
+/* ------------------ DESCRIPTION ------------------ */
+.repo-description {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+/* ------------------ STATISTICHE ------------------ */
+.repo-stats {
+  font-size: 14px;
+  color: #6b7280;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+/* ------------------ LANGUAGES ------------------ */
+.repo-languages {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.repo-language {
+  background: #60a5fa;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* ------------------ AZIONI ------------------ */
+.repo-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.repo-actions button,
+.repo-actions a {
+  background: #fb923c;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: #ffffff;
+  text-decoration: none !important;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.repo-actions button:hover,
+.repo-actions a:hover {
+  background: #f97316;
+  transform: translateY(-2px);
+}
+
+/* Pulsanti Wiki/Docs e Live Demo */
+.repo-doc-button {
+  background: #4a90e2 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+.repo-demo-button {
+  background: #fb923c !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+/* ------------------ TOPICS ------------------ */
+.repo-topics {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.repo-topic {
+  background: #93c5fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #1f2937;
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* ------------------ LINK OVUNQUE ------------------ */
+.repo-card a {
+  text-decoration: none !important;
+}
+
+.repo-card a:hover {
+  text-decoration: none !important;
+}

@@ -1,0 +1,201 @@
+/* CONTAINER */
+.repositories-searchbar-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* MAIN BAR */
+.repositories-searchbar-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* INPUT */
+.repositories-searchbar-main input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #c0c7d6;
+  font-size: 15px;
+  background: #f8f9fc;
+  color: #333;
+  outline: none;
+}
+
+.repositories-searchbar-main input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74,144,226,0.15);
+}
+
+/* BUTTON FILTRI */
+.filter-btn {
+  background: #4a90e2;
+  border: none;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filter-btn:hover {
+  background: #357bd8;
+}
+
+/* AUTOCOMPLETE */
+.autocomplete-box {
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+  z-index: 20;
+}
+
+.autocomplete-box div {
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.autocomplete-box div:hover {
+  background: #e8f0ff;
+  color: #1a3f7a;
+}
+
+/* FILTRI ATTIVI (pill) */
+.active-filters {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.filter-pill {
+  display: inline-block;
+  background: #4a90e2;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 15px;
+  margin: 4px;
+  font-size: 12px;
+}
+
+/* PANEL FILTRI */
+.filters-panel {
+  margin-top: 15px;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* GRUPPI FILTRI */
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-group span {
+  font-weight: 600;
+  color: #1a3f7a;
+  margin-right: 5px;
+}
+
+/* BOTTONI FILTRI */
+.filter-group button {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  background: #e8f0ff;
+  color: #1a3f7a;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* HOVER */
+.filter-group button:hover {
+  background: #4a90e2;
+  color: white;
+}
+
+/* ATTIVO */
+.filter-group button.active {
+  background: #ff8c42;
+  color: white;
+}
+
+
+
+/* stelle */
+.star {
+  cursor: pointer;
+  font-size: 18px;
+  opacity: 0.3;
+}
+
+.star.active {
+  opacity: 1;
+}
+
+/* select */
+.filter-group select {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #c0c7d6;
+}
+
+/* radio layout */
+.filter-group label {
+  margin-right: 10px;
+  font-size: 13px;
+}
+
+
+
+/* FILTRI IN LINEA */
+.inline-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* spazio tra span e bottoni */
+  flex-wrap: wrap; /* mantiene tutto sulla stessa riga ma si adatta */
+}
+
+.inline-filters span {
+  font-weight: 600;
+}
+
+/* Bottone filtro singola scelta */
+.filter-option {
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1px solid #c0c7d6;
+  background: #f8f9fc;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.filter-option:hover {
+  background: #e1e6f0;
+}
+
+.filter-option.active {
+  background: #4a90e2;
+  color: white;
+  border-color: #4a90e2;
+}

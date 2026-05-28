@@ -1,0 +1,71 @@
+.github-highlights-container {
+    margin: 50px 10%;
+}
+
+.highlights-title {
+    font-size: 32px;
+    color: #1f2a44;
+    margin-bottom: 30px;
+}
+
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.highlight-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-decoration: none;
+    color: #1f2a44;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.highlight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.repo-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #3345e4;
+}
+
+.repo-description {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.repo-info {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.repo-language {
+    background-color: #f1f3f6;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.repo-stars, .repo-forks {
+    font-weight: bold;
+    color: #ff4500;
+}
+
+.repo-updated {
+    font-size: 12px;
+    color: gray;
+}
