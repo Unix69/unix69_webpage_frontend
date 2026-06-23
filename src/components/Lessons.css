@@ -5,7 +5,6 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Header di Sezione (allineato a Profile) */
 .lessons-header {
     margin-bottom: 40px;
 }
@@ -27,7 +26,6 @@
     margin-bottom: 40px;
 }
 
-/* Stile per le card delle materie */
 .subject-card {
     background: #ffffff;
     border: 1px solid #d0d8ff;
@@ -42,14 +40,6 @@
 
 
 
-
-
-
-
-
-
-
-/* --- Hero Section --- */
 .hero-section {
     text-align: center;
     padding: 60px 0;
@@ -91,7 +81,7 @@
     justify-content: center;
 }
 
-/* --- Buttons (Reuse Profile Styles) --- */
+
 .btn-book {
     display: inline-flex;
     align-items: center;
@@ -128,7 +118,7 @@
     background: #d93b00;
 }
 
-/* --- Sezioni --- */
+
 .lessons-section {
     margin-bottom: 50px;
 }
@@ -161,14 +151,14 @@
 }
 
 
-/* Styling dell'albero */
+
 .tree-container {
-    border-left: 2px dashed #1f76b4; /* Linea tratteggiata per l'albero */
+    border-left: 2px dashed #1f76b4;
     margin-left: 10px;
     padding-left: 20px;
 }
 
-/* Stile cartella che non sembra un bottone */
+
 .category-header-card {
     display: flex;
     align-items: center;
@@ -188,7 +178,7 @@
     color: #ff4500;
 }
 
-/* Stile file per distinguersi dalla cartella */
+
 .file-card {
     display: flex;
     justify-content: space-between;
@@ -222,7 +212,7 @@
     background: #1f76b4;
 }
 
-/* Sezioni di Info e Pricing */
+
 .info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

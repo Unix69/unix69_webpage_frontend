@@ -1,16 +1,16 @@
-/* Contenitore griglia */
+
 .macro-sections-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 card per riga */
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   margin: 50px 0;
   justify-items: center;
   padding: 0 10px;
 }
 
-/* Card singola */
+
 .macro-section-card {
-  width: 100%; /* si adatta alla colonna */
+  width: 100%;
   max-width: 320px;
   padding: 30px 25px;
   border-radius: 20px;
@@ -30,7 +30,7 @@
   box-shadow: 0 12px 30px rgba(0,0,0,0.18);
 }
 
-/* Titolo della card */
+
 .macro-section-title {
   font-size: 28px;
   font-weight: 600;
@@ -39,22 +39,21 @@
   letter-spacing: 0.5px;
 }
 
-/* Descrizione della card */
 .macro-section-description {
   font-size: 15px;
   color: #777777;
   line-height: 1.6;
 }
 
-/* Media queries responsive */
+
 @media (max-width: 1000px) {
   .macro-sections-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 card per riga su tablet */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 600px) {
   .macro-sections-container {
-    grid-template-columns: 1fr; /* 1 card per riga su smartphone */
+    grid-template-columns: 1fr;
   }
 }

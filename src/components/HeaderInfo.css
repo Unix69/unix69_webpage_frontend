@@ -7,12 +7,12 @@
     position: absolute;
     bottom: -5px;
     right: -5px;
-    opacity: 0; /* Invisibile finché non ci passi sopra */
+    opacity: 0;
     transition: opacity 0.2s ease;
 }
 
 .logo-wrapper:hover .download-btn {
-    opacity: 1; /* Appare quando passi sul logo */
+    opacity: 1; 
 }
 
 
@@ -56,7 +56,7 @@
 
 .header-info-meta {
     text-align: right;
-    font-family: 'Courier New', monospace; /* Look tecnico per i metadati */
+    font-family: 'Courier New', monospace;
 }
 
 .header-info-github {

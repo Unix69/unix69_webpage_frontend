@@ -1,4 +1,4 @@
-/* Link nella intro */
+
 .intro-section a {
   color: #4a90e2;
   text-decoration: none;
@@ -13,15 +13,14 @@
 }
 
 
-/* Container principale */
 .repositories {
   padding: 30px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: #f5f7fb; /* soft white/blue */
+  background: #f5f7fb;
   color: #333;
 }
 
-/* Sezione introduttiva */
+
 .intro-section {
   background: #ffffff;
   border-radius: 12px;
@@ -30,7 +29,7 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-/* Sezione ricerca */
+
 .search-section {
   text-align: center;
   margin-bottom: 30px;
@@ -46,15 +45,15 @@
   color: #333;
 }
 
-/* Sommario e sezioni */
+
 .repos-summary, .repos-stats, .top-repos, .repo-topics-section {
   margin-bottom: 40px;
 }
 
-/* Pill dei nomi dei repository */
+
 .repo-name-pill {
   display: inline-block;
-  background: #4a90e2; /* soft blue */
+  background: #4a90e2;
   color: #fff;
   padding: 5px 10px;
   border-radius: 15px;
@@ -62,7 +61,7 @@
   font-size: 14px;
 }
 
-/* Sezione grafici */
+
 .charts-section {
   display: flex;
   flex-wrap: wrap;
@@ -72,7 +71,7 @@
 }
 
 .chart-wrapper {
-  background: #e8f0ff; /* molto soft blue */
+  background: #e8f0ff;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -82,10 +81,10 @@
 
 .chart-wrapper h2 {
   margin-bottom: 20px;
-  color: #1a3f7a; /* blu più scuro */
+  color: #1a3f7a;
 }
 
-/* Griglia repository */
+
 .repo-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -94,14 +93,14 @@
 }
 
 
-/* Topic repository */
+
 .repo-topics {
   margin-bottom: 12px;
 }
 
 .topic-pill {
   display: inline-block;
-  background: #f5a623; /* soft orange */
+  background: #f5a623;
   color: #fff;
   padding: 4px 8px;
   border-radius: 12px;
@@ -109,7 +108,7 @@
   font-size: 12px;
 }
 
-/* Titoli */
+
 .orange-title {
   color: #ff8c42;
 }
@@ -118,7 +117,7 @@
   color: #4a90e2;
 }
 
-/* Statistiche */
+
 .stats-dashboard {
   margin: 40px 0;
 }
@@ -133,7 +132,7 @@
 .stat-card {
   flex: 1;
   min-width: 160px;
-  background: #e8f0ff; /* soft blue */
+  background: #e8f0ff;
   color: #1a3f7a;
   padding: 20px;
   border-radius: 12px;
