@@ -1,13 +1,12 @@
 
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useRef } from 'react';
 
 // Mantine Core
 import { 
   Modal, Tabs, TextInput, Container, Title, Badge, SimpleGrid, rem, 
   Card, Text, CopyButton, Button, Group, Collapse, Stack, Box, Paper, ThemeIcon, 
-  List, Select, ActionIcon, Checkbox, Chip, Affix, Transition, Center, Flex, Grid, Accordion, Divider, Progress, UnstyledButton
+  List, Select, ActionIcon, Checkbox, Chip, Affix, Transition, Center, Flex, Grid, Divider, Progress, UnstyledButton
 } from '@mantine/core';
 
 
