@@ -244,7 +244,7 @@ function getFieldErrors(info, lessonsTree) {
   return errors;
 }
 
-export function BookingFormSection({ lessonInfo, setLessonInfo, lessonsTree, onBook, loading }) {
+export function BookingFormSection({ id, lessonInfo, setLessonInfo, lessonsTree, onBook, loading }) {
   const [formErrors, setFormErrors] = useState({});
 
   const handleChange = (field, value) => {
@@ -284,71 +284,73 @@ export function BookingFormSection({ lessonInfo, setLessonInfo, lessonsTree, onB
 
 
   return (
-    <Paper withBorder p="xl" radius="lg" shadow="sm">
-      <Title order={3} mb="xl" c="blue" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <IconCalendarEvent /> Configure your session
-      </Title>
+    <div id={id} className="max-w-3xl mx-auto ...">
+      <Paper withBorder p="xl" radius="lg" shadow="sm">
+        <Title order={3} mb="xl" c="blue" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <IconCalendarEvent /> Configure your session
+        </Title>
 
-      <Grid gutter="xl">
-        <Grid.Col span={{ base: 12, md: 4 }}>
-          <Box p="md" style={{ border: '1px solid #eee', borderRadius: '12px' }}>
-            <DateTimePicker
-              label="Pick date and time"
-              value={lessonInfo.date}
-              onChange={(val) => handleChange('date', val)}
-              error={formErrors.date}
-              leftSection={<IconCalendarEvent size={16} />}
-              styles={{
-                calendarHeader: { padding: '4px 8px' },
-                calendarHeaderControl: { width: '24px', height: '24px' },
-                day: { width: '30px', height: '30px' }
-              }}
-            />
-          </Box>
-        </Grid.Col>
-
-        <Grid.Col span={{ base: 12, md: 8 }}>
-          <Stack gap="md">
-            <Group grow>
-              <TextInput label="Full Name" error={formErrors.name} leftSection={<IconUser size={16}/>} placeholder="John Doe" value={lessonInfo.name} onChange={(e) => handleChange('name', e.target.value)} />
-              <TextInput label="Email" error={formErrors.email} leftSection={<IconMail size={16}/>} placeholder="john@example.com" value={lessonInfo.email} onChange={(e) => handleChange('email', e.target.value)} />
-            </Group>
-
-            <TextInput label="Lesson Title" error={formErrors.title} leftSection={<IconBook size={16}/>} placeholder="e.g., Intro to React" value={lessonInfo.title} onChange={(e) => handleChange('title', e.target.value)} />
-
-            <SimpleGrid cols={2}>
-              <Select label="Subject" error={formErrors.subject} leftSection={<IconSchool size={16}/>} data={getSubjects(lessonsTree)} value={lessonInfo.subject} onChange={(val) => handleChange('subject', val)} />
-              <Select label="Duration" error={formErrors.duration} leftSection={<IconClock size={16}/>} data={[{value: '1h', label: '1 Hour'}, {value: '2h', label: '2 Hours'}]} value={lessonInfo.duration} onChange={(val) => handleChange('duration', val)} />
-            </SimpleGrid>
-
-            <Select label="Lesson Type" error={formErrors.type} leftSection={<IconCategory size={16}/>} data={ALLOWED_BOOK_FORM_VALUES.type} value={lessonInfo.type || ALLOWED_BOOK_FORM_VALUES.type[0]} onChange={(val) => handleChange('type', val)} />
-
-            <Box>
-              <Text size="sm" fw={500} mb={5}>Payment Preference</Text>
-              <SegmentedControl
-                fullWidth
-                color="blue"
-                variant="default"
-                radius="md"
-                data={[
-                  { label: 'Pay on booking', value: 'pay-now' },
-                  { label: 'Pay Later', value: 'pay-later' }
-                ]}
-                value={lessonInfo.payment || 'pay-now'} 
-                onChange={(val) => handleChange('payment', val)}
-                styles={(theme) => ({
-                  indicator: { backgroundColor: theme.colors.blue[6] },
-                })}
+        <Grid gutter="xl">
+          <Grid.Col span={{ base: 12, md: 4 }}>
+            <Box p="md" style={{ border: '1px solid #eee', borderRadius: '12px' }}>
+              <DateTimePicker
+                label="Pick date and time"
+                value={lessonInfo.date}
+                onChange={(val) => handleChange('date', val)}
+                error={formErrors.date}
+                leftSection={<IconCalendarEvent size={16} />}
+                styles={{
+                  calendarHeader: { padding: '4px 8px' },
+                  calendarHeaderControl: { width: '24px', height: '24px' },
+                  day: { width: '30px', height: '30px' }
+                }}
               />
             </Box>
-          </Stack>
-        </Grid.Col>
-      </Grid>
+          </Grid.Col>
 
-      <Button fullWidth size="lg" mt="xl" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }} loading={loading} onClick={handleBookSubmit}>
-        Confirm & Book Session
-      </Button>
-    </Paper>
+          <Grid.Col span={{ base: 12, md: 8 }}>
+            <Stack gap="md">
+              <Group grow>
+                <TextInput label="Full Name" error={formErrors.name} leftSection={<IconUser size={16}/>} placeholder="John Doe" value={lessonInfo.name} onChange={(e) => handleChange('name', e.target.value)} />
+                <TextInput label="Email" error={formErrors.email} leftSection={<IconMail size={16}/>} placeholder="john@example.com" value={lessonInfo.email} onChange={(e) => handleChange('email', e.target.value)} />
+              </Group>
+
+              <TextInput label="Lesson Title" error={formErrors.title} leftSection={<IconBook size={16}/>} placeholder="e.g., Intro to React" value={lessonInfo.title} onChange={(e) => handleChange('title', e.target.value)} />
+
+              <SimpleGrid cols={2}>
+                <Select label="Subject" error={formErrors.subject} leftSection={<IconSchool size={16}/>} data={getSubjects(lessonsTree)} value={lessonInfo.subject} onChange={(val) => handleChange('subject', val)} />
+                <Select label="Duration" error={formErrors.duration} leftSection={<IconClock size={16}/>} data={[{value: '1h', label: '1 Hour'}, {value: '2h', label: '2 Hours'}]} value={lessonInfo.duration} onChange={(val) => handleChange('duration', val)} />
+              </SimpleGrid>
+
+              <Select label="Lesson Type" error={formErrors.type} leftSection={<IconCategory size={16}/>} data={ALLOWED_BOOK_FORM_VALUES.type} value={lessonInfo.type || ALLOWED_BOOK_FORM_VALUES.type[0]} onChange={(val) => handleChange('type', val)} />
+
+              <Box>
+                <Text size="sm" fw={500} mb={5}>Payment Preference</Text>
+                <SegmentedControl
+                  fullWidth
+                  color="blue"
+                  variant="default"
+                  radius="md"
+                  data={[
+                    { label: 'Pay on booking', value: 'pay-now' },
+                    { label: 'Pay Later', value: 'pay-later' }
+                  ]}
+                  value={lessonInfo.payment || 'pay-now'} 
+                  onChange={(val) => handleChange('payment', val)}
+                  styles={(theme) => ({
+                    indicator: { backgroundColor: theme.colors.blue[6] },
+                  })}
+                />
+              </Box>
+            </Stack>
+          </Grid.Col>
+        </Grid>
+
+        <Button fullWidth size="lg" mt="xl" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }} loading={loading} onClick={handleBookSubmit}>
+          Confirm & Book Session
+        </Button>
+      </Paper>
+    </div>
   );
 }
 
@@ -591,7 +593,7 @@ export default function Lessons() {
   }, []);
 
   useEffect(() => {
-    fetch('/resources-tree.json')
+    fetch(`${process.env.PUBLIC_URL}/resources-tree.json`)
         .then(res => res.json())
         .then(data => setLessonsTree(data))
         .catch(err => console.error('Failed to load lessons tree:', err));
@@ -642,7 +644,8 @@ export default function Lessons() {
         <PricingSection onDurationSelect={handleDurationSelect} />
          <br/>
          <br/>
-        <BookingFormSection 
+        <BookingFormSection
+          id="booking" 
           lessonInfo={lesson_info} 
           setLessonInfo={setLessonInfo}
           lessonsTree={lessonsTree}
@@ -659,7 +662,8 @@ export default function Lessons() {
         <br/>
         <br/>
         <Modal opened={modalOpened} onClose={() => setModalOpened(false)} size="lg">
-          <BookingFormSection 
+          <BookingFormSection
+            id="booking"
             lessonInfo={lesson_info}
             setLessonInfo={setLessonInfo}
             onBook={handleBook}
@@ -677,7 +681,7 @@ export default function Lessons() {
         <br/>
         <br/>
         <MaterialsSection 
-          lessonsTree={lessonsTree} // Passa il dato
+          id="materials" lessonsTree={lessonsTree} // Passa il dato
         />
         <br/>
         <br/>
@@ -822,7 +826,7 @@ export function HeroSection() {
               size="xl" 
               radius="md"
               component="a" 
-              href={CAL_TUTORING_LINK} 
+              href="#booking" 
               leftSection={<IconCalendar size={20} />}
             >
               Book a session
@@ -1562,7 +1566,7 @@ const formatSize = (bytes) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
 };
 
-export function MaterialsSection({ lessonsTree }) {
+export function MaterialsSection({ id, lessonsTree }) {
   const [catSearchQuery, setCatSearchQuery] = useState('');     // Per la sezione Categorie
   const [downloadSearchQuery, setDownloadSearchQuery] = useState(''); // Per la sezione Download
   const [selectedPaths, setSelectedPaths] = useState(new Set());
@@ -1775,9 +1779,7 @@ export function MaterialsSection({ lessonsTree }) {
   }, [downloadSearchQuery, allFiles]);
 
   return (
-    <section style={{ padding: '20px 0', maxWidth: '1000px', margin: '0 auto' }}>
-
-
+    <section id={id} style={{ padding: '20px 0', maxWidth: '1000px', margin: '0 auto' }}>
       <Paper withBorder p="xl" radius="md" mb="xl">
         <Title order={2} mb="xs">
               <IconSearch size={28} style={{ verticalAlign: 'middle', marginRight: 10 }} />

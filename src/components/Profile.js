@@ -63,7 +63,7 @@ const Profile = () => {
               <Button
                 key={i}
                 component="a"
-                href={cv.path}
+                href={`${process.env.PUBLIC_URL}${cv.path}`}
                 download
                 leftSection={<IconDownload size={18} />}
                 variant="gradient"
@@ -178,7 +178,7 @@ const Profile = () => {
                     <Text fw={600}>{pub.title}</Text>
                     <Text size="xs" c="dimmed">{pub.venue}</Text>
                   </Box>
-                  <Anchor href={pub.file} download size="xs" fw={700}>
+                  <Anchor href={`${process.env.PUBLIC_URL}${pub.file}`} download size="xs" fw={700}>
                     <Group gap={4}><IconDownload size={14}/> PDF</Group>
                   </Anchor>
                 </Group>

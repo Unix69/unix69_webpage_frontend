@@ -1740,61 +1740,63 @@ export function ConsultingExplorer({ businessData, appData, jobData }) {
   const prev = () => setActiveSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
 
   return (
-    <Box py={60}>
-      <Title order={1} ta="center" mb={40}>Explore Your Consulting Path</Title>
+    <section id="domains">
+      <Box py={60}>
+        <Title order={1} ta="center" mb={40}>Explore Your Consulting Path</Title>
 
-      {/* Container principale con Flex per centrare verticalmente */}
-      <Flex justify="center" align="center" gap="md" style={{ position: 'relative' }}>
+        {/* Container principale con Flex per centrare verticalmente */}
+        <Flex justify="center" align="center" gap="md" style={{ position: 'relative' }}>
+          
+          {/* Freccia Indietro - Centrata verticalmente */}
+          <ActionIcon 
+            size={50} 
+            variant="outline" 
+            onClick={prev}
+            style={{ flexShrink: 0 }}
+          >
+            <IconChevronLeft size={30} />
+          </ActionIcon>
+
+          {/* Area Contenuto - Larghezza fissa per evitare salti */}
+          <Box style={{ width: '100%', maxWidth: '1000px', minHeight: '500px' }}>
+            <Transition mounted={true} transition="fade" duration={300}>
+              {(styles) => (
+                <div style={styles}>
+                  {slides[activeSlide].component}
+                </div>
+              )}
+            </Transition>
+          </Box>
+
+          {/* Freccia Avanti - Centrata verticalmente */}
+          <ActionIcon 
+            size={50} 
+            variant="outline" 
+            onClick={next}
+            style={{ flexShrink: 0 }}
+          >
+            <IconChevronRight size={30} />
+          </ActionIcon>
+
+        </Flex>
         
-        {/* Freccia Indietro - Centrata verticalmente */}
-        <ActionIcon 
-          size={50} 
-          variant="outline" 
-          onClick={prev}
-          style={{ flexShrink: 0 }}
-        >
-          <IconChevronLeft size={30} />
-        </ActionIcon>
-
-        {/* Area Contenuto - Larghezza fissa per evitare salti */}
-        <Box style={{ width: '100%', maxWidth: '1000px', minHeight: '500px' }}>
-          <Transition mounted={true} transition="fade" duration={300}>
-            {(styles) => (
-              <div style={styles}>
-                {slides[activeSlide].component}
-              </div>
-            )}
-          </Transition>
-        </Box>
-
-        {/* Freccia Avanti - Centrata verticalmente */}
-        <ActionIcon 
-          size={50} 
-          variant="outline" 
-          onClick={next}
-          style={{ flexShrink: 0 }}
-        >
-          <IconChevronRight size={30} />
-        </ActionIcon>
-
-      </Flex>
-      
-      {/* Indicatori in basso */}
-      <Flex justify="center" mt="xl" gap="sm">
-        {slides.map((_, idx) => (
-          <Box 
-            key={idx} 
-            style={{ 
-              width: activeSlide === idx ? 24 : 10, 
-              height: 10, 
-              borderRadius: 5, 
-              backgroundColor: activeSlide === idx ? 'var(--mantine-color-blue-6)' : '#ccc',
-              transition: 'width 0.3s'
-            }} 
-          />
-        ))}
-      </Flex>
-    </Box>
+        {/* Indicatori in basso */}
+        <Flex justify="center" mt="xl" gap="sm">
+          {slides.map((_, idx) => (
+            <Box 
+              key={idx} 
+              style={{ 
+                width: activeSlide === idx ? 24 : 10, 
+                height: 10, 
+                borderRadius: 5, 
+                backgroundColor: activeSlide === idx ? 'var(--mantine-color-blue-6)' : '#ccc',
+                transition: 'width 0.3s'
+              }} 
+            />
+          ))}
+        </Flex>
+      </Box>
+    </section>
   );
 }
 
@@ -1825,10 +1827,8 @@ function getFieldErrors(info) {
 }
 
 
-export function BookingFormSection({ info = {}, setInfo, onBook, loading }) {
+export function BookingFormSection({ id, info = {}, setInfo, onBook, loading }) {
   const [formErrors, setFormErrors] = useState({});
-
-  
 
   const handleChange = (field, value) => {
     const newInfo = { ...info, [field]: value };
@@ -1868,52 +1868,54 @@ export function BookingFormSection({ info = {}, setInfo, onBook, loading }) {
   }, []);
 
   return (
-    <Paper withBorder p="xl" radius="lg" shadow="sm">
-      <Title order={3} mb="xl" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <IconCalendarEvent /> Schedule Consulting Session
-      </Title>
+    <div id={id} className="max-w-3xl mx-auto ...">
+      <Paper withBorder p="xl" radius="lg" shadow="sm">
+        <Title order={3} mb="xl" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <IconCalendarEvent /> Schedule Consulting Session
+        </Title>
 
-      <Grid gutter="xl">
-        {/* Colonna Data e Orario */}
-        <Grid.Col span={{ base: 12, md: 4 }}>
-          <Box p="md" style={{ border: '1px solid #eee', borderRadius: '12px' }}>
-            <DateTimePicker
-              label="Pick date and time"
-              value={info.date}
-              onChange={(val) => handleChange('date', val)}
-              error={formErrors.date}
-              leftSection={<IconCalendarEvent size={16} />}
-            />
-          </Box>
-        </Grid.Col>
+        <Grid gutter="xl">
+          {/* Colonna Data e Orario */}
+          <Grid.Col span={{ base: 12, md: 4 }}>
+            <Box p="md" style={{ border: '1px solid #eee', borderRadius: '12px' }}>
+              <DateTimePicker
+                label="Pick date and time"
+                value={info.date}
+                onChange={(val) => handleChange('date', val)}
+                error={formErrors.date}
+                leftSection={<IconCalendarEvent size={16} />}
+              />
+            </Box>
+          </Grid.Col>
 
-        {/* Colonna Dati Tecnici */}
-        <Grid.Col span={{ base: 12, md: 8 }}>
-          <Stack gap="md">
-            <Group grow>
-              <TextInput label="Full Name / Company Name" value={info.name} onChange={(e) => handleChange('name', e.target.value)} error={formErrors.name} />
-              <TextInput label="Email" value={info.email} onChange={(e) => handleChange('email', e.target.value)} error={formErrors.email} />
-            </Group>
+          {/* Colonna Dati Tecnici */}
+          <Grid.Col span={{ base: 12, md: 8 }}>
+            <Stack gap="md">
+              <Group grow>
+                <TextInput label="Full Name / Company Name" value={info.name} onChange={(e) => handleChange('name', e.target.value)} error={formErrors.name} />
+                <TextInput label="Email" value={info.email} onChange={(e) => handleChange('email', e.target.value)} error={formErrors.email} />
+              </Group>
 
-            <SimpleGrid cols={2}>
-              <Select label="Business Domain" data={ALLOWED_CONSULTING_BOOK_FORM_VALUES.business_domains} value={info.business_domain} onChange={(val) => handleChange('business_domain', val)} error={formErrors.business_domain} />
-              <Select label="Application Domain" data={ALLOWED_CONSULTING_BOOK_FORM_VALUES.application_domains} value={info.application_domain} onChange={(val) => handleChange('application_domain', val)} error={formErrors.application_domain} />
-            </SimpleGrid>
+              <SimpleGrid cols={2}>
+                <Select label="Business Domain" data={ALLOWED_CONSULTING_BOOK_FORM_VALUES.business_domains} value={info.business_domain} onChange={(val) => handleChange('business_domain', val)} error={formErrors.business_domain} />
+                <Select label="Application Domain" data={ALLOWED_CONSULTING_BOOK_FORM_VALUES.application_domains} value={info.application_domain} onChange={(val) => handleChange('application_domain', val)} error={formErrors.application_domain} />
+              </SimpleGrid>
 
-            <Select label="Job Category" data={ALLOWED_CONSULTING_BOOK_FORM_VALUES.job_categories} value={info.job_category} onChange={(val) => handleChange('job_category', val)} error={formErrors.job_category} />
+              <Select label="Job Category" data={ALLOWED_CONSULTING_BOOK_FORM_VALUES.job_categories} value={info.job_category} onChange={(val) => handleChange('job_category', val)} error={formErrors.job_category} />
 
-            <Group grow>
-              <Select label="Duration" data={ALLOWED_CONSULTING_BOOK_FORM_VALUES.durations} value={info.duration} onChange={(val) => handleChange('duration', val)} />
-              <Select label="Payment Preference" data={[{label: 'Pay Now', value: 'pay-now'}, {label: 'Pay Later', value: 'pay-later'}]} value={info.payment} onChange={(val) => handleChange('payment', val)} />
-            </Group>
-          </Stack>
-        </Grid.Col>
-      </Grid>
+              <Group grow>
+                <Select label="Duration" data={ALLOWED_CONSULTING_BOOK_FORM_VALUES.durations} value={info.duration} onChange={(val) => handleChange('duration', val)} />
+                <Select label="Payment Preference" data={[{label: 'Pay Now', value: 'pay-now'}, {label: 'Pay Later', value: 'pay-later'}]} value={info.payment} onChange={(val) => handleChange('payment', val)} />
+              </Group>
+            </Stack>
+          </Grid.Col>
+        </Grid>
 
-      <Button fullWidth mt="xl" size="lg" onClick={handleBookSubmit} loading={loading}>
-        Confirm Consultation
-      </Button>
-    </Paper>
+        <Button fullWidth mt="xl" size="lg" onClick={handleBookSubmit} loading={loading}>
+          Confirm Consultation
+        </Button>
+      </Paper>
+    </div>
 
   );
 }
@@ -2153,7 +2155,7 @@ export default function Lessons() {
   }, []);
 
   useEffect(() => {
-    fetch('/resources-tree.json')
+    fetch(`${process.env.PUBLIC_URL}/resources-tree.json`)
         .then(res => res.json())
         .then(data => setLessonsTree(data))
         .catch(err => console.error('Failed to load resources tree:', err));
@@ -2189,7 +2191,8 @@ export default function Lessons() {
         <ConsultingExplorer businessData={buisness_domains_info} appData={application_domains_info} jobData={job_categories_info}/>
         <ModelsSection data={models_info}/>
         <ConsultingProcessSection/>
-        <BookingFormSection 
+        
+        <BookingFormSection id="booking" 
           info={consulting_info} 
           setInfo={setConsultingInfo}
           onBook={handleFormSubmit}        // <--- Qui passi la funzione
@@ -2465,7 +2468,7 @@ export function HeroSection() {
             <Button size="xl" radius="md" component="a" href="#booking" leftSection={<IconRocket size={20} />}>
               Schedule Your Session
             </Button>
-            <Button size="xl" radius="md" variant="outline" component="a" href="#expertise">
+            <Button href="#domains" size="xl" radius="md" variant="outline" component="a">
               Explore Domains
             </Button>
           </Group>
@@ -3445,8 +3448,6 @@ export function ResourcesSection({ lessonsTree }) {
   
     return (
       <section style={{ padding: '20px 0', maxWidth: '1000px', margin: '0 auto' }}>
-  
-  
         <Paper withBorder p="xl" radius="md" mb="xl">
           <Title order={2} mb="xs">
                 <IconSearch size={28} style={{ verticalAlign: 'middle', marginRight: 10 }} />
