@@ -1,0 +1,100 @@
+## MQTT Data Loader server application
+This application is a Python application based on MQTT and MongoDB. It manages MQTT incoming data in order to create a local MongoDB Database.    
+
+### MQTTDataLoader Software and System requirements
+MQTT Data loader can run on Linux Ubuntu focal 20.04 if the following software requirements are satisfied:
+	* Python 3.8 and Python packages:
+		* paho-mqtt
+		* pymongo
+		* typing-extensions
+		* DateTime 
+	* MongoDB == 4.4.15
+
+Such requirements can be installed easly by following the instructions contained into 'Install MQTTDataLoader software requirements' section of this REAMDE.  
+
+## Getting Started
+In order to start using MQTT Data loader you need to:
+	
+	* Download the application
+	* Install software requirements
+	* Configure the application
+	* Launch the application
+
+### Download MQTTDataLoader application
+In order to download MQTTDataLoader application use the following command:
+
+	```
+		git clone https://github.com/giuseppe-pedone/MQTTDataLoader.git
+	```
+
+### Install MQTTDataLoader software requirements
+Once downloaded the application, in order to satisfy MQTTDataLoader software requirements:
+
+* Install Python and Python system requirements by running ./scripts/pythoninstall.sh from ROOT directory:
+  
+  ```
+  	sudo ./scripts/pythoninstall.sh
+  
+  ```
+
+* Install MongoDB by running ./scripts/mongoinstall.sh from ROOT directory:
+
+	```	
+		sudo ./scripts/mongoinstall.sh [MongoDB Data Path] [MongoDB Log Path]
+	```
+
+	* [MongoDB Data Path] is the location into the filesystem where mongodb deposite the raw data, indexes, temp files and installation files will be moved after the installation process
+	* [MongoDB Log Path] is the location into the filesystem where mongodb stores its logs during its execution
+
+Notes: if you install MongoDB by running the script with arguments you MUST be sure that both directories are correctly configured into the MQTTDataLoader.conf file
+
+### Configure MQTTDataLoader application
+To configure the application correctly you need to modify the MQTTDataLoader.conf file contained into ROOT directory. It is a JSON document that contains all possible application settings and preferences. It contains a general section related to the whole application, a mongodb section to configure mongodb properly, and a mqtt section to configure mqtt properly. Lets see the most important options of configuration file.
+
+In the MongoDB Section of MQTTDataLoader.conf JSON File
+	* dataPath is the folder path where MongoDB saves the data.
+	* logPath is the folder path where MongoDB saves the log file
+	* maxRetryConnectionAtStartup is the number of retry connection to MongoDB at startup.
+	* databaseName is the ID name of the database that MongoDB uses to store data.
+	* collectionName is the ID name of the collection that MongoDB uses to store data.
+	* bindIps represents a list of IP to use to bind MongoDB on the host system. 
+	* bindPort represents the TCP port to use to bind MongoDB on the host system. 
+
+
+In the MQTT Section of MQTTDataLoader.conf JSON File:
+
+	* brokerIp is the IP of the broker to connect to.
+	* brokerPort is the TCP port of the broker to connect to.
+	* maxRetryConnectionAtStartup as in the MongoDB section, this is the maximum number of retry connection to the broker at startup
+	* topics is the list of topics to which the application will subscribe to in order to get data only from this topics. 
+
+For a complete options description lets see the options file contained into ROOT directory.
+
+
+### Launch MQTTDataLoader application
+There are two ways to launch MQTTDataLoader:
+
+* Launching MQTTDataLoader by running the following command without arguments, from ROOT directory:
+  
+  ```
+  	sudo ./launch.sh
+  
+  ```
+
+* Launching MQTTDataLoader by running the following command with an argument, from ROOT directory:
+  
+  ```
+  	sudo ./launch.sh [MQTTDataLoader Configuration File Path]
+  
+  ```
+
+Notes: the first way suppose that the MQTTDataLoader configuration file is named MQTTDataLoader.conf and it is located into ROOT directory. The second way permit to specifiy the location and the name of the MQTTDataLoader configuration file.
+
+### View MongoDB database and install MongoDB Compass
+In order to visualize MongoDB database you need to launch MongoDB Compass that is installed automatically if you launch scripts/mongoinstall.sh. Otherwise you need to install it manually by running the following commands from any directory:
+
+  ```	
+		wget https://downloads.mongodb.com/compass/mongodb-compass_1.39.3_amd64.deb
+		sudo dpkg -i mongodb-compass_1.39.3_amd64.deb
+  
+  ```

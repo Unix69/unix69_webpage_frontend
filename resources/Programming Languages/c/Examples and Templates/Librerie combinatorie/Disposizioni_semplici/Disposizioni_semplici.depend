@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1438956627 source:c:\users\peppe\desktop\disposizioni_semplici\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1453573855 source:c:\users\peppe\desktop\programmazione\c\librerie combinatorie\disposizioni_semplici\main.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+

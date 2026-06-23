@@ -1,0 +1,7 @@
+pymongo
+pandas
+XlsxWriter
+DateTime
+Flask
+flask-cors
+pyopenssl

@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/unix69_webpage_frontend/static/css/main.18af9e12.css",
+    "main.js": "/unix69_webpage_frontend/static/js/main.766cd87b.js",
+    "static/media/HeaderInfoBackgroundImage.jpg": "/unix69_webpage_frontend/static/media/HeaderInfoBackgroundImage.8df268ce98147b463645.jpg",
+    "static/media/profile_photo.jpg": "/unix69_webpage_frontend/static/media/profile_photo.61888be08f519cf4d18b.jpg",
+    "static/media/PolitoLogo.svg": "/unix69_webpage_frontend/static/media/PolitoLogo.bcd90217d26f33ae23507e5ce03f2e37.svg",
+    "static/media/NovaMotumLogo.svg": "/unix69_webpage_frontend/static/media/NovaMotumLogo.06e9f6e15a93a7665910056c391d3c34.svg",
+    "static/media/GarminLogo.svg": "/unix69_webpage_frontend/static/media/GarminLogo.fecb2c0c3a2f9609d873eab0d5306885.svg",
+    "static/media/SATLogo.svg": "/unix69_webpage_frontend/static/media/SATLogo.1b6cdd22fc972356ffe57e55773f5c98.svg",
+    "static/media/HarvardLogo.svg": "/unix69_webpage_frontend/static/media/HarvardLogo.6300697d44379afd60e36c6efbae7f81.svg",
+    "static/media/GnuLinuxLogo.svg": "/unix69_webpage_frontend/static/media/GnuLinuxLogo.1cc85cf97811f371fcd932bd6a41ae1c.svg",
+    "static/media/SpeaLogo.svg": "/unix69_webpage_frontend/static/media/SpeaLogo.e544fafbc8c75d10094687ad2d659d8c.svg",
+    "static/media/ReactLogo.svg": "/unix69_webpage_frontend/static/media/ReactLogo.f57b349b4d9df56c9b48c916a8d5adfb.svg",
+    "static/media/CSSLogo.svg": "/unix69_webpage_frontend/static/media/CSSLogo.8ce984a6e7dcde3cf56d343bfeb9672c.svg",
+    "static/media/ASM.svg": "/unix69_webpage_frontend/static/media/ASM.0a19c0efc2bdbeab3b87c40ba9407b9f.svg",
+    "static/media/TelegramLogo.svg": "/unix69_webpage_frontend/static/media/TelegramLogo.b39684d8a8c2a548aec79bb7f6c09a34.svg",
+    "static/media/LinkedInLogo.svg": "/unix69_webpage_frontend/static/media/LinkedInLogo.472162bfd17256365103ba572e3a9a58.svg",
+    "static/media/JSLogo.svg": "/unix69_webpage_frontend/static/media/JSLogo.fef7215d0d3e578f01ad70419d4c4308.svg",
+    "static/media/Java.svg": "/unix69_webpage_frontend/static/media/Java.852ba2f633e117268b7c47d90cfe7461.svg",
+    "static/media/Mantine.svg": "/unix69_webpage_frontend/static/media/Mantine.cbb72c430f17f4d50970a0eede66a36c.svg",
+    "static/media/Python.svg": "/unix69_webpage_frontend/static/media/Python.f9025833b4c29e711bb9789f645e8154.svg",
+    "static/media/C++.svg": "/unix69_webpage_frontend/static/media/C++.8933e7e6416a17d02820dea2088fd19a.svg",
+    "static/media/GitHubLogo.svg": "/unix69_webpage_frontend/static/media/GitHubLogo.255db585f8a0eb28a1e4deb91bde207d.svg",
+    "static/media/Csharp.svg": "/unix69_webpage_frontend/static/media/Csharp.33d74861ea780c962215493d94fa6c6a.svg",
+    "static/media/C.svg": "/unix69_webpage_frontend/static/media/C.3f12bcad65ed4caae5a6a4ca58105ba3.svg",
+    "static/media/Javascript.svg": "/unix69_webpage_frontend/static/media/Javascript.2c6f5b09d7398538877df425131205f9.svg",
+    "static/media/Cal.svg": "/unix69_webpage_frontend/static/media/Cal.7db3eda727ba813c95d5167c53a79725.svg",
+    "static/media/HTMLLogo.svg": "/unix69_webpage_frontend/static/media/HTMLLogo.0107c93943a8f415b5db64ebb0a9d12d.svg",
+    "static/media/JuventusLogo.svg": "/unix69_webpage_frontend/static/media/JuventusLogo.72003d658f56227d08f982eaf7a5e594.svg",
+    "index.html": "/unix69_webpage_frontend/index.html",
+    "static/media/i18N.svg": "/unix69_webpage_frontend/static/media/i18N.b45d2b5e18c11304039ecf26301519f2.svg",
+    "static/media/Redis.svg": "/unix69_webpage_frontend/static/media/Redis.ce454c1d84fa89920d2db191e023f6ef.svg",
+    "static/media/Railway.svg": "/unix69_webpage_frontend/static/media/Railway.1f2641b7b1f2c920ee9ce51d2aa48c99.svg",
+    "main.18af9e12.css.map": "/unix69_webpage_frontend/static/css/main.18af9e12.css.map",
+    "main.766cd87b.js.map": "/unix69_webpage_frontend/static/js/main.766cd87b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.18af9e12.css",
+    "static/js/main.766cd87b.js"
+  ]
+}

@@ -1,0 +1,63 @@
+## Argument list
+
+[argument_name] = [default_argument_value]
+	[DESCRIPTION]
+
+* mongodb_server_binary_path = "../resources/mongodb/bin/mongod
+	This option permit to set MongoDB Server binary location
+* mongodb_server_data_path = "../resources/mongodb/data/db"
+	This option permit to set MongoDB Server data path
+* mongodb_server_log_file = "./mongodbserver.log"
+	This option permit to set MongoDB Server log file
+* mongodb_host = "127.0.0.1"
+	This option permit to set MongoDB Server IP
+* mongodb_port = 27017
+	This option permit to set MongoDB Server PORT
+* mongodb_database = "mqttdb"
+	This option permit to set the name of database to create on MongoDB
+* mongodb_collection = "device"
+	This option permit to set the name of collection to create on MongoDB
+* mongodb_max_retry_connection = 5
+	This option permit to set the maximum number of MongoDB connection retry to perform at startup
+* mongodb_operation_timeout_seconds = 500
+	This option permit to set the maximum number of seconds to wait for a MongoDB command
+* mongodb_server_selection_timeout_ms = 1000
+	This option permit to set the maximum number of milliseconds of MongoDB server selection operation 
+* mongodb_socket_timeout_ms = 1000
+	This option permit to set the maximum number of milliseconds of MongoDB socket operation
+* mongodb_timeout_ms = 1000
+	This option permit to set the timeout of MongoDB Server
+* mongodb_connect_timeout_ms = 1000
+	This option permit to set the connect timeout of MongoDB client to MongoDB Server
+* mongodb_max_pool_size = 100
+	This option permit to set the maximum size of MongoDB pool
+* mongodb_max_idle_time_ms = 1000
+	This option permit to set the maximum number of milliseconds to wait in idle state
+* mongodb_direct_connection = True
+	This option permit to set a direct connection between MongoDB Client and MongoDB Server
+* mongodb_max_connecting = 100
+	This option permit to set the maximum number of MongoDB simultaneous connections
+* mongodb_heartbeat_frequency_ms = 1000
+	This option permit to set the MongoDB heartbeat period in milliseconds
+* mongodb_retry_writes = False
+	This option permit to set the MongoDB write retry
+* mongodb_retry_reads = False
+	This option permit to set the MongoDB read retry
+* mongodb_uuid_representation = "standard"
+	This option permit to set the MongoDB uuid representation
+* mongodb_compressors = "zlib"
+	This option permit to set the MongoDB tyoe of compressor
+* mongodb_zlibcompression_level = 1
+	This option permit to set the MongoDB zlib compression level
+* mqtt_host = "sat01.satechnologies.eu"
+	This option permit to set the MQTT Broker IP
+* mqtt_port = 1883
+	This option permit to set the MQTT Broker PORT
+* mqtt_username = "rw"
+	This option permit to set the MQTT username
+* mqtt_password = "readwrite"
+	This option permit to set the MQTT password
+* mqtt_max_retry_connection = 5
+	This option permit to set the maximum number of MQTT connection retry to perform at startup
+* mqtt_topics = ["PREDICTS", "Fusion"]
+	This option permit to set the MQTT topics to which subscribe for

@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1439141855 source:c:\users\peppe\desktop\bst\bst.c
+	<stdlib.h>
+	<stdio.h>
+	"BST.h"
+
+1439141623 c:\users\peppe\desktop\bst\bst.h
+
+1439141855 source:c:\users\peppe\desktop\programmazione\c\tipi di dato\bst\bst.c
+	<stdlib.h>
+	<stdio.h>
+	"BST.h"
+
+1439219170 c:\users\peppe\desktop\programmazione\c\tipi di dato\bst\bst.h
+

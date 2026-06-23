@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1439401873 source:c:\users\peppe\desktop\symboltable\st.c
+	<stdlib.h>
+	<stdio.h>
+	"st.h"
+
+1439219450 c:\users\peppe\desktop\symboltable\st.h
+

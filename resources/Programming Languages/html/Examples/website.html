@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduzione al linguaggio HTML</title>
+    <meta name="description" content="Una semplice pagina web per presentare il linguaggio HTML con esempi e struttura base.">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        header, footer {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+        }
+        main {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            overflow-x: auto;
+            border-left: 4px solid #333;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Benvenuto nel mondo dell'HTML</h1>
+    <nav>
+        <a href="#cosè">Cos'è HTML</a>
+        <a href="#struttura">Struttura base</a>
+        <a href="#esempi">Esempi</a>
+    </nav>
+</header>
+
+<main>
+    <section id="cosè">
+        <h2>Cos'è HTML?</h2>
+        <p>
+            <strong>HTML</strong> (HyperText Markup Language) è il linguaggio standard per creare pagine web. 
+            Utilizza <em>tag</em> per strutturare contenuti come titoli, paragrafi, immagini, collegamenti e tanto altro.
+        </p>
+    </section>
+
+    <section id="struttura">
+        <h2>Struttura base di una pagina HTML</h2>
+        <p>Una tipica pagina HTML è composta dai seguenti elementi:</p>
+        <ul>
+            <li><code>&lt;!DOCTYPE html&gt;</code>: indica il tipo di documento.</li>
+            <li><code>&lt;html&gt;</code>: contenitore principale.</li>
+            <li><code>&lt;head&gt;</code>: contiene meta-informazioni e collegamenti a risorse.</li>
+            <li><code>&lt;body&gt;</code>: contiene i contenuti visibili della pagina.</li>
+        </ul>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="it"&gt;
+  &lt;head&gt;
+    &lt;title&gt;Esempio HTML&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Ciao mondo!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+    <section id="esempi">
+        <h2>Esempi di tag HTML comuni</h2>
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>Tag</th>
+                    <th>Descrizione</th>
+                    <th>Esempio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>&lt;p&gt;</code></td>
+                    <td>Paragrafo</td>
+                    <td><code>&lt;p&gt;Testo di esempio&lt;/p&gt;</code></td>
+                </tr>
+                <tr>
+                    <td><code>&lt;a&gt;</code></td>
+                    <td>Collegamento ipertestuale</td>
+                    <td><code>&lt;a href="https://www.example.com"&gt;Visita&lt;/a&gt;</code></td>
+                </tr>
+                <tr>
+                    <td><code>&lt;img&gt;</code></td>
+                    <td>Immagine</td>
+                    <td><code>&lt;img src="logo.png" alt="Logo"&gt;</code></td>
+                </tr>
+                <tr>
+                    <td><code>&lt;ul&gt;&lt;li&gt;</code></td>
+                    <td>Lista non ordinata</td>
+                    <td><code>&lt;ul&gt;&lt;li&gt;Elemento&lt;/li&gt;&lt;/ul&gt;</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 - Introduzione all'HTML. Tutti i diritti riservati.</p>
+</footer>
+
+</body>
+</html>
+
