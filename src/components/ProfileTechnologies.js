@@ -1,43 +1,70 @@
 import React, { useState } from "react";
+import { Paper, Group, Text, Collapse, Badge, ActionIcon, Stack, Box } from "@mantine/core";
+import { IconChevronDown } from "@tabler/icons-react";
 import profileData from "../data/ProfileData";
 
 const ProfileTechnologies = () => {
-  // stato per aprire/chiudere categorie
-  const [openCategories, setOpenCategories] = useState({});
+  const [openedCategories, setOpenedCategories] = useState({});
 
   const toggleCategory = (category) => {
-    setOpenCategories(prev => ({
+    setOpenedCategories((prev) => ({
       ...prev,
-      [category]: !prev[category]
+      [category]: !prev[category],
     }));
   };
 
   return (
-    <section>
-      <h3>Experienced Technologies</h3>
-      <div className="technologies-container">
-        {Object.entries(profileData.technologies).map(([category, items], i) => (
-          <div key={i} className="technology-category-card">
-            <div 
-              className="category-header-card" 
-              onClick={() => toggleCategory(category)}
-            >
-              {category.replace(/([A-Z])/g, ' $1').trim()} ▾
-            </div>
+    <Stack gap="md" mt="xl">
+      <Text size="sm" c="dimmed" fw={700}>
+        Experienced Technologies
+      </Text>
+      
+      <Stack gap="xs">
+        {Object.entries(profileData.technologies).map(([category, items], i) => {
+          const isOpened = !!openedCategories[category];
+          
+          return (
+            <Paper key={i} withBorder radius="md" p={0} overflow="hidden">
+              <Group 
+                justify="space-between" 
+                p="md" 
+                style={{ cursor: 'pointer' }}
+                onClick={() => toggleCategory(category)}
+              >
+                <Text fw={600} c="blue.6">
+                  {category.replace(/([A-Z])/g, ' $1').trim()}
+                </Text>
+                <ActionIcon variant="subtle" color="gray" style={{ 
+                  transform: isOpened ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.2s' 
+                }}>
+                  <IconChevronDown size={18} />
+                </ActionIcon>
+              </Group>
 
-            {openCategories[category] && (
-              <div className="category-items-cards">
-                {items.map((item, j) => (
-                  <div key={j} className="tech-item-card">
-                    {item}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </section>
+              <Collapse in={isOpened}>
+                <Box p="md" pt={0} style={{ borderTop: '1px solid var(--mantine-color-gray-2)' }}>
+                  <Group gap="xs" mt="md">
+                    {items.map((item, j) => (
+                      <Badge 
+                        key={j} 
+                        variant="light" 
+                        size="lg" 
+                        tt="none"
+                        color="blue"
+                        style={{ cursor: 'default' }}
+                      >
+                        {item}
+                      </Badge>
+                    ))}
+                  </Group>
+                </Box>
+              </Collapse>
+            </Paper>
+          );
+        })}
+      </Stack>
+    </Stack>
   );
 };
 

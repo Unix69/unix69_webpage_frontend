@@ -14,6 +14,14 @@ import LinkedInLogo from "../logo/LinkedInLogo.svg";
 
 import ProfileTechnologies from './ProfileTechnologies';
 
+import { Card, Image, List,
+     Box, Anchor, Badge, Stack, Timeline, Paper, ThemeIcon, Title, Text, Group, 
+     Avatar, Button, Divider, Grid } from '@mantine/core';
+import { IconBriefcase, IconBuilding, IconFileText, 
+  IconExternalLink, IconSchool, IconBrain, IconBook, IconDownload,
+  IconBrandGithub, IconMail } from '@tabler/icons-react';
+
+
 const Profile = () => {
 
   const {
@@ -24,106 +32,168 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-      <div className="profile-header">
-        <img src={profilePhoto} alt="Profile" className="profile-photo"/>
-        <div>
-          <h1>{name}</h1>
-          <h2>{role}</h2>
+      <Group align="flex-start" gap="xl" mb="xl">
+        {/* Avatar moderno */}
+        <Avatar 
+          src={profilePhoto} 
+          size={170} 
+          radius="md" 
+          style={{ border: '1px solid var(--mantine-color-gray-3)' }}
+        />
+
+        {/* Info Profilo */}
+        <Stack gap="xs">
+          <Box>
+            <Title order={1} c="blue.7">{name}</Title>
+            <Title order={2} size="h3" c="blue.5" fw={500}>{role}</Title>
+          </Box>
+
+          {/* ORCID */}
           {profileData.orcid && (
-            <p className="orcid">
-                ORCID: <a href={profileData.orcidLink} target="_blank" rel="noopener noreferrer">{profileData.orcid}</a>
-            </p>
+            <Text size="sm" fw={600} c="orange.6">
+              ORCID: <Anchor href={profileData.orcidLink} target="_blank" c="blue.7" fz="sm">
+                {profileData.orcid} <IconExternalLink size={12} />
+              </Anchor>
+            </Text>
           )}
-          {cvFile.map((cv, i) => (
-            <a key={i} href={cv.path} download className="cv-download">
-                Download {cv.name} (PDF)
-            </a>))}
-        </div>
-      </div>
 
-      <section>
-        <h3>Professional Summary</h3>
-        <p>{summary}</p>
-      </section>
+          {/* Bottoni CV */}
+          <Group gap="sm" mt="sm">
+            {cvFile.map((cv, i) => (
+              <Button
+                key={i}
+                component="a"
+                href={cv.path}
+                download
+                leftSection={<IconDownload size={18} />}
+                variant="gradient"
+                gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+              >
+                Download {cv.name}
+              </Button>
+            ))}
+          </Group>
+        </Stack>
+      </Group>
 
-      <section>
-        <h3>Education</h3>
-        {education.map((edu, i) => (
-          <div key={i} className="profile-card">
-            <span className="period">{edu.period}</span>
-            <div>
-              <strong>{edu.title}</strong>
-              <p>{edu.institution}</p>
-            </div>
-          </div>
-        ))}
-      </section>
+      <Stack gap="xl">
+        {/* 1. Professional Summary */}
+        <Paper p="xl" withBorder radius="md">
+          <Group mb="sm">
+            <ThemeIcon color="blue" variant="light" size="lg"><IconBook size={20} /></ThemeIcon>
+            <Title order={3}>Professional Summary</Title>
+          </Group>
+          <Text size="md" c="gray.7" style={{ lineHeight: 1.6 }}>{summary}</Text>
+        </Paper>
 
-      <section>
-        <h3>Research Interests</h3>
-        <div className="tag-container">
-          {researchInterests.map((r, i) => (
-            <span key={i} className="profile-tag">{r}</span>
-          ))}
-        </div>
-      </section>
+        {/* 2. Education (Uso della Timeline per un effetto professionale) */}
+        <Paper p="xl" withBorder radius="md">
+          <Group mb="xl">
+            <ThemeIcon color="blue" variant="light" size="lg"><IconSchool size={20} /></ThemeIcon>
+            <Title order={3}>Education</Title>
+          </Group>
+          
+          <Timeline active={0} bulletSize={24} lineWidth={2} color="blue">
+            {education.map((edu, i) => (
+              <Timeline.Item key={i} title={edu.title} bullet={<IconSchool size={12} />}>
+                <Text size="sm" c="dimmed">{edu.period}</Text>
+                <Text size="sm" fw={500} mb="xs">{edu.institution}</Text>
+              </Timeline.Item>
+            ))}
+          </Timeline>
+        </Paper>
 
-      <section>
-        <h3>Work Experience</h3>
-        <div className="timeline">
-          {workTimeline.map((job, i) => (
-            <div key={i} className="timeline-item">
-              <div className="timeline-dot"></div>
-              <div>
-                <span className="period">{job.period}</span>
-                <strong>{job.title}</strong>
-                <p>{job.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* 3. Research Interests (Badge dinamici) */}
+        <Paper p="xl" withBorder radius="md">
+          <Group mb="md">
+            <ThemeIcon color="blue" variant="light" size="lg"><IconBrain size={20} /></ThemeIcon>
+            <Title order={3}>Research Interests</Title>
+          </Group>
+          
+          <Group gap="xs">
+            {researchInterests.map((r, i) => (
+              <Badge key={i} variant="light" size="lg" tt="none" radius="sm" color="blue">
+                {r}
+              </Badge>
+            ))}
+          </Group>
+        </Paper>
+      </Stack>
 
-      <section>
-        <h3>Companies & Collaborations</h3>
-        <div className="companies-container">
+
+      <Stack gap="xl">
+        {/* 1. Work Experience (Timeline) */}
+        <Paper p="xl" withBorder radius="md">
+          <Group mb="xl">
+            <ThemeIcon color="blue" variant="light" size="lg"><IconBriefcase size={20} /></ThemeIcon>
+            <Title order={3}>Work Experience</Title>
+          </Group>
+          
+          <Timeline active={0} bulletSize={20} lineWidth={2} color="blue">
+            {workTimeline.map((job, i) => (
+              <Timeline.Item key={i} title={job.title} bullet={<IconBriefcase size={12} />}>
+                <Text size="sm" c="dimmed">{job.period}</Text>
+                <Text size="sm" mt={4}>{job.description}</Text>
+              </Timeline.Item>
+            ))}
+          </Timeline>
+        </Paper>
+
+        {/* 2. Companies & Collaborations (Grid di Card) */}
+        <Paper p="xl" withBorder radius="md">
+          <Group mb="xl">
+            <ThemeIcon color="blue" variant="light" size="lg"><IconBuilding size={20} /></ThemeIcon>
+            <Title order={3}>Companies & Collaborations</Title>
+          </Group>
+
+          <Grid>
             {companies.map((company, i) => (
-            <a 
-                key={i} 
-                href={company.link} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="company-card"
-            >
-                {company.logo && (
-                <img src={company.logo} alt={company.name} className="company-logo"/>
-                )}
-                <div className="company-info">
-                <strong>{company.name}</strong>
-                <p>{company.role}</p>
-                <span className="period">{company.period}</span>
-                </div>
-            </a>
+              <Grid.Col key={i} span={{ base: 12, sm: 6, md: 4 }}>
+                <Card withBorder radius="md" component="a" href={company.link} target="_blank">
+                  <Card.Section p="md" style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Image src={company.logo} alt={company.name} h={80} w={90} fit="contain" />
+                  </Card.Section>
+                  <Text fw={600} ta="center">{company.name}</Text>
+                  <Text size="xs" c="dimmed" ta="center">{company.role}</Text>
+                  <Text size="xs" c="blue" ta="center" mt={4}>{company.period}</Text>
+                </Card>
+              </Grid.Col>
             ))}
-        </div>
-      </section>
+          </Grid>
+        </Paper>
 
-      <section>
-        <h3>Publications</h3>
-        <ul>
+        {/* 3. Publications (List ordinata) */}
+        <Paper p="xl" withBorder radius="md">
+          <Group mb="md">
+            <ThemeIcon color="blue" variant="light" size="lg"><IconFileText size={20} /></ThemeIcon>
+            <Title order={3}>Publications</Title>
+          </Group>
+          <br/>
+          <br/>
+          <List spacing="md" size="sm" center icon={<ThemeIcon color="blue" size={24} radius="xl"><IconFileText size={14}/></ThemeIcon>}>
             {profileData.publications.map((pub, i) => (
-            <li key={i}>
-                <strong>{pub.title}</strong> — {pub.venue} &nbsp;
-                <a href={pub.file} download>Download PDF</a>
-            </li>
+              <List.Item key={i}>
+                <Group justify="space-between">
+                  <Box>
+                    <Text fw={600}>{pub.title}</Text>
+                    <Text size="xs" c="dimmed">{pub.venue}</Text>
+                  </Box>
+                  <Anchor href={pub.file} download size="xs" fw={700}>
+                    <Group gap={4}><IconDownload size={14}/> PDF</Group>
+                  </Anchor>
+                </Group>
+              </List.Item>
             ))}
-        </ul>
-      </section>
+          </List>
+        </Paper>
+      </Stack>
 
-      
+      <br/>
+      <br/>
       <ProfileTechnologies />
 
-
+      <br/>
+      <br/>
       <section>
         <h3>Contacts</h3>
         <div className="contact-container">

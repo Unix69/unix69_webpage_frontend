@@ -1,119 +1,127 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link, useLocation } from "react-router-dom";
+import React from 'react';
+import { Menu, Group, UnstyledButton, Box } from '@mantine/core';
+import { Link, useLocation } from 'react-router-dom';
+import { 
+  IconChevronRight, IconHome, IconUser, IconBooks, IconCode, 
+  IconDownload, IconMessage, IconSettings, IconCategory 
+} from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next'; // <--- IMPORTANTE
+
 import './HeaderNavigator.css';
 
-function HeaderNavigator({
-  headerNavigatorClass = "header-navigator",
-  headerNavigatorItemClass = "header-navigator-item",
-  headerNavigatorLinkClass = "header-navigator-link",
-  headerNavigatorDropdownClass = "header-navigator-dropdown"
-}) {
+const navIcons = {
+  'Home': <IconHome size={18} />,
+  'Profile': <IconUser size={18} />,
+  'Activities': <IconCategory size={18} />,
+  'Resources': <IconBooks size={18} />,
+  'Learning': <IconCode size={18} />,
+  'Downloads': <IconDownload size={18} />,
+  'References': <IconSettings size={18} />,
+  'Contacts': <IconMessage size={18} />
+};
 
+function HeaderNavigator({ tabs = [] }) {
   const location = useLocation();
-  const navRef = useRef(null);
-  const [highlightStyle, setHighlightStyle] = useState({});
-  const [activeTab, setActiveTab] = useState(0);
+  const { t } = useTranslation(); // <--- INIZIALIZZA LA TRADUZIONE
 
-  const tabs = [
-    { label: 'Home', path: '/' },
-    { label: 'Profile', path: '/profile' },
-    {label: 'Activities', href: '#activities', dropdown: [
-        {label: 'Lessons',path: '/lessons'}
-    ]},
-    { label: 'Resources', href: '#resources', dropdown: [
-      { label: 'Repositories', path: '/repositories' },
-      { label: 'Projects', href: '#projects' },
-      { label: 'Tools', href: '#repositories' },
-      { label: 'Contents', href: '#contents', dropdown: [
-        { label: 'Code Snippets', href: '#snippets' },
-        { label: 'Guides', href: '#guides' },
-        { label: 'Tutorials', href: '#tutorials' },
-        { label: 'How To\'s', href: '#howtos' },
-        { label: 'Manuals', href: '#manuals' },
-        { label: 'Courses', href: '#courses' }
-      ]}
-    ]},
-    { label: 'Learning', href: '#learning', dropdown: [
-        { label: 'Languages', path: '/languages' },
-        { label: 'Operating Systems', href: '#os_intro' },
-        { label: 'Tools', href: '#tools_intro' },
-    ]},
-    { label: 'Downloads', href: '#downloads' },
-    { label: 'References', href: '#references' },
-    { label: 'Contacts', href: '#contacts' }
-  ];
+  const renderDropdown = (items, currentPath) => {
+    if (!items) return null;
 
-  useEffect(() => {
-    const index = tabs.findIndex(tab => tab.path === location.pathname);
-    if (index !== -1) {
-      setActiveTab(index);
-    }
-  }, [location.pathname]);
+    return items.map((item) => {
+      const isActive = isTabActive(item, currentPath);
 
-  useEffect(() => {
-    if(navRef.current) {
-      const tabElements = Array.from(navRef.current.children)
-        .filter(el => el.classList.contains(headerNavigatorItemClass));
-
-      const activeLink = tabElements[activeTab];
-      if(activeLink){
-        setHighlightStyle({
-          width: `${activeLink.offsetWidth}px`,
-          left: `${activeLink.offsetLeft}px`
-        });
+      if (item.dropdown) {
+        return (
+          <Menu key={item.label} position="right-start" trigger="hover" openDelay={0}>
+            <Menu.Target>
+              <Menu.Item 
+                rightSection={<IconChevronRight size={14} />}
+                c="white"
+                styles={{ item: { backgroundColor: 'transparent', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.2)' } } }}
+              >
+                {t(item.label)} {/* <--- TRADUZIONE NEL DROPDOWN */}
+              </Menu.Item>
+            </Menu.Target>
+            <Menu.Dropdown bg="blue.9">
+              {renderDropdown(item.dropdown, currentPath)}
+            </Menu.Dropdown>
+          </Menu>
+        );
       }
-    }
-  }, [activeTab]);
-
-  // funzione ricorsiva per renderizzare dropdown e sub-dropdown con path
-  const renderDropdownItem = (item) => (
-    <div
-      key={item.label}
-      className={`dropdown-item ${item.dropdown ? 'has-submenu' : ''}`}
-    >
-      {item.path ? (
-        <Link to={item.path}>{item.label}</Link>
-      ) : (
-        <a href={item.href}>{item.label}</a>
-      )}
-
-      {item.dropdown && (
-        <div className="header-navigator-subdropdown">
-          {item.dropdown.map(sub => renderDropdownItem(sub))}
-        </div>
-      )}
-    </div>
-  );
+      
+      return (
+        <Menu.Item 
+          key={item.label} 
+          component={item.path ? Link : 'a'} 
+          to={item.path} 
+          href={item.href}
+          c={isActive ? '#ffeb3b' : 'white'}
+          classNames={{ item: 'dropdown-item-hover' }}
+          styles={{
+            item: {
+              backgroundColor: isActive ? 'rgba(0, 0, 0, 0.3)' : 'transparent',
+              borderLeft: isActive ? '4px solid #ffeb3b' : '4px solid transparent',
+              transition: 'background-color 0.2s ease',
+            }
+          }}
+        >
+          {t(item.label)} {/* <--- TRADUZIONE NEL DROPDOWN ITEM */}
+        </Menu.Item>
+      );
+    });
+  };
 
   return (
-    <nav className={headerNavigatorClass} ref={navRef}>
-      <div className="highlight" style={highlightStyle}></div>
+    <Box component="nav" px="md" style={{ background: 'radial-gradient(circle, #1f62ce, #1f76b4)', borderBottom: '2px solid #1f4eb4' }}>
+      <Group gap={4}>
+        {tabs.map((tab) => {
+          const isActive = isTabActive(tab, location.pathname);
+          const tabContent = (
+            <UnstyledButton 
+              px="lg" py="md"
+              style={{
+                display: 'flex', alignItems: 'center', gap: '8px',
+                color: isActive ? '#ffeb3b' : 'white',
+                fontWeight: 700,
+                backgroundColor: isActive ? 'rgba(0,0,0,0.3)' : 'transparent',
+                borderBottom: isActive ? '2px solid #ffeb3b' : '2px solid transparent',
+                transition: 'all 0.2s'
+              }}
+              styles={{ root: { '&:hover': { backgroundColor: 'rgba(128, 9, 9, 0.2)' } } }}
+            >
+              {/* Usiamo tab.label per prendere l'icona (chiave inglese), ma t(tab.label) per il testo */}
+              {navIcons[tab.label] || null} {t(tab.label)} 
+            </UnstyledButton>
+          );
 
-      {tabs.map((tab, index) => (
-        <div
-          key={index}
-          className={`${headerNavigatorItemClass} ${activeTab === index ? 'active' : ''}`}
-          onClick={() => setActiveTab(index)}
-        >
-          {tab.path ? (
-            <Link to={tab.path} className={headerNavigatorLinkClass}>
-              {tab.label}
+          if (tab.dropdown) {
+            return (
+              <Menu key={tab.label} position="bottom-start" offset={-4} trigger="hover" openDelay={0}>
+                <Menu.Target>{tabContent}</Menu.Target>
+                <Menu.Dropdown bg="blue.9" style={{ borderRadius: '0 0 8px 8px' }}>
+                  {renderDropdown(tab.dropdown, location.pathname)} 
+                </Menu.Dropdown>
+              </Menu>
+            );
+          }
+
+          return (
+            <Link key={tab.label} to={tab.path} style={{ textDecoration: 'none' }}>
+              {tabContent}
             </Link>
-          ) : (
-            <a href={tab.href} className={headerNavigatorLinkClass}>
-              {tab.label}
-            </a>
-          )}
-
-          {tab.dropdown && (
-            <div className={headerNavigatorDropdownClass}>
-              {tab.dropdown.map(item => renderDropdownItem(item))}
-            </div>
-          )}
-        </div>
-      ))}
-    </nav>
+          );
+        })}
+      </Group>
+    </Box>
   );
 }
+
+// Assicurati che isTabActive sia definita nel file (come l'avevi già)
+const isTabActive = (tab, currentPath) => {
+  if (!currentPath) return false;
+  if (tab.path === currentPath) return true;
+  if (tab.dropdown) return tab.dropdown.some(child => isTabActive(child, currentPath));
+  return false;
+};
 
 export default HeaderNavigator;

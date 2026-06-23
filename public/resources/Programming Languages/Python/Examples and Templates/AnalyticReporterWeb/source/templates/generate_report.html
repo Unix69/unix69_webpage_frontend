@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytic Reporter Web Server</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Analytic Reporter Getter</h1>
+        <form id="getReportForm" action="/generate_report" method="post">
+            <br>
+            <div class="form-group">
+                <label for="application">Application</label>
+                <select class="form-control" name="application" id="application" required>
+                    {% for application in applications %}
+                        <option value="{{ application }}">{{ application }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="reportFromDate">Report from date</label>
+                <input type="date" class="form-control" id="reportFromDate" name="reportFromDate" title="Enter the Report Start Date" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="reportToDate">Report to date</label>
+                <input type="date" class="form-control" id="reportToDate" name="reportToDate" title="Enter the Report End Date" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-dark" id="getReportBtn">Get Report</button>
+        </form>
+        <br>
+        <span id="getReportErrorPanelSpan" style="color: red;"> {{ errorMessage }} </span>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $('#getReportForm').submit(function() {
+          $('#getReportErrorPanelSpan').text("");
+          return true;
+        });
+    </script>
+
+
+</body>
+</html>
+
+
+

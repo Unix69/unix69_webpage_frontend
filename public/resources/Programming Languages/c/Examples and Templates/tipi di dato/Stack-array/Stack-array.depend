@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1438545126 source:c:\users\peppe\desktop\stack-array\stack-array.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Stack-array.h"
+
+1438544566 c:\users\peppe\desktop\stack-array\stack-array.h
+

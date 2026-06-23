@@ -1,47 +1,69 @@
+.logo-wrapper {
+    position: relative;
+    display: inline-block;
+}
 
-.header-info {
-    font-weight: bold;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0;
-    margin: 0;
+.download-btn {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    opacity: 0; /* Invisibile finché non ci passi sopra */
+    transition: opacity 0.2s ease;
+}
+
+.logo-wrapper:hover .download-btn {
+    opacity: 1; /* Appare quando passi sul logo */
+}
+
+
+.header-info-container {
     width: 100%;
-    background-image: url("../background/HeaderInfoBackgroundImage.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border: 1px solid #000;
+    background: #0b1120;
+    padding: 0.8rem 2rem;
+    border-bottom: 2px solid #1e293b;
+    color: white;
+}
+
+.header-info-content {
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
 .header-info-logo {
-    width: 160px;
-    height: 160px;
-    margin-left: 16px;
-    margin-right: 0px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    background: transparent;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border-radius: 8px;
 }
 
-.header-info-url {
-    font-size: 40px;
-    color: #f9b930;
-    text-shadow: 0px 0px 8px #000;
-    font-weight: bold;
-    text-decoration: none;
-    margin-top: 56px;
-    margin-right: 8px;
-    margin-left: 16px;
+.header-info-logo:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.05);
 }
 
-.header-info-url:hover {
-    transition: transform 0.3s, box-shadow 0.3s;
-    transform: scale(1.15);
-    box-shadow: 2px 8px 16px #00000000;
+.header-info-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ffffff !important;
 }
 
+.header-info-tagline {
+    font-size: 0.75rem;
+    color: #475569;
+    letter-spacing: 0.5px;
+}
 
+.header-info-meta {
+    text-align: right;
+    font-family: 'Courier New', monospace; /* Look tecnico per i metadati */
+}
 
+.header-info-github {
+    color: #64748b;
+    transition: color 0.2s;
+}
 
-
+.header-info-github:hover {
+    color: #3b82f6;
+}

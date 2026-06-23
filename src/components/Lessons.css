@@ -1,0 +1,262 @@
+.lessons-container {
+    background-color: white;
+    color: #1f2a44;
+    padding: 50px 10%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Header di Sezione (allineato a Profile) */
+.lessons-header {
+    margin-bottom: 40px;
+}
+
+.lessons-header h1 {
+    font-size: 34px;
+    color: #1f76b4;
+    margin: 0;
+}
+
+.lessons-header h2 {
+    color: #3345e4;
+    font-weight: normal;
+}
+
+
+
+.section-box {
+    margin-bottom: 40px;
+}
+
+/* Stile per le card delle materie */
+.subject-card {
+    background: #ffffff;
+    border: 1px solid #d0d8ff;
+    padding: 20px;
+    border-radius: 16px;
+    transition: 0.3s;
+}
+
+.subject-card:hover {
+    border-color: #1f76b4;
+}
+
+
+
+
+
+
+
+
+
+
+/* --- Hero Section --- */
+.hero-section {
+    text-align: center;
+    padding: 60px 0;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 30px;
+    background: #f0f4ff;
+    border: 1px solid #1f76b4;
+    margin-bottom: 25px;
+}
+
+.hero-badge span {
+    font-weight: bold;
+    color: #1f76b4;
+    font-size: 1.2rem;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    color: #1f2a44;
+    margin: 0 0 20px 0;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* --- Buttons (Reuse Profile Styles) --- */
+.btn-book {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: linear-gradient(to right, #3345e4, #1f76b4);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.3s;
+    font-size: 1.1rem;
+}
+
+.btn-book:hover {
+    background: linear-gradient(to right, #2a38b8, #196396);
+}
+
+.btn-materials {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: #ff4500;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.3s;
+    font-size: 1.1rem;
+}
+
+.btn-materials:hover {
+    background: #d93b00;
+}
+
+/* --- Sezioni --- */
+.lessons-section {
+    margin-bottom: 50px;
+}
+
+.lessons-section h3 {
+    border-bottom: 3px solid #ff4500;
+    padding-bottom: 8px;
+    margin-bottom: 25px;
+    color: #1f76b4;
+    font-size: 1.8rem;
+}
+
+.category-header {
+    display: block;
+    padding: 14px 20px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background-color: #f8f9ff;
+    color: #1f76b4;
+    cursor: pointer;
+    border-bottom: 1px solid #d0d8ff;
+    margin: 5px 0;
+    border-radius: 6px;
+    text-align: left;
+    width: 100%;
+}
+
+.category-header:hover {
+    background-color: #d0d8ff;
+}
+
+
+/* Styling dell'albero */
+.tree-container {
+    border-left: 2px dashed #1f76b4; /* Linea tratteggiata per l'albero */
+    margin-left: 10px;
+    padding-left: 20px;
+}
+
+/* Stile cartella che non sembra un bottone */
+.category-header-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f76b4;
+    transition: 0.2s;
+    width: 100%;
+}
+
+.category-header-card:hover {
+    color: #ff4500;
+}
+
+/* Stile file per distinguersi dalla cartella */
+.file-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    margin: 4px 0;
+    background: #ffffff;
+    border: 1px solid #d0d8ff;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.file-card::before {
+    content: "📄";
+    margin-right: 8px;
+    font-size: 0.8rem;
+}
+
+
+.download-link {
+    background: linear-gradient(to right, #3345e4, #1f76b4);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.download-link:hover {
+    background: #1f76b4;
+}
+
+/* Sezioni di Info e Pricing */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.info-card {
+    border: 1px solid #1f76b4;
+    border-radius: 10px;
+    padding: 20px;
+    background: #fff;
+}
+
+.pricing-card {
+    text-align: center;
+    border: 2px solid #3345e4;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.pricing-card h3 { color: #1f76b4; }
+.price-tag { font-size: 24px; font-weight: bold; color: #ff4500; }
+
+
+
+.react-flow__edge-path {
+    stroke: #339af0 !important;
+    stroke-width: 3px !important;
+    stroke-dasharray: none !important;
+    display: block !important;
+    opacity: 1 !important;
+}
+
+.react-flow__edge {
+    display: block !important;
+    pointer-events: auto !important;
+}

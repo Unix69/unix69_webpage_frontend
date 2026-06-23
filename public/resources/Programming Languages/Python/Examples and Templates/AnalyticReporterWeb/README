@@ -1,0 +1,147 @@
+## Analytic Reporter Web
+Analytic Reporter Web is a client-server web application that is used to retrieve remotely an analytical report file produced between two given dates. In this scenario:
+
+	* Analytic Reporter Web Client (ARWC) perform an HTTP POST request, containing two dates as data, to the Analytic Reporter Web Server and wait for a given HTTP POST response containing the required analytical report file.
+	* Analytic Reporter Web Server (ARWS) is listen for HTTP POST requests, incoming from some ARWCs and produce for each of them the required analytical report file between the two requested dates.   
+
+For each HTTP POST request, the ARWS performs the following internal operation:
+	* Connects to a MongoDB Database via TCP/IP.
+	* Gets some pre-processed data, through a MongoDB QUERY.
+	* Produces an .xlsx file (representing the analytical report file) that contains such pre-processed data in a given format.
+
+
+MongoDB Database contains data related to SmartWatch applications running on different devices. So, by inspecting the content of an analytical report file .xlsx it contains for each day between the requested dates, a sheet named 'report-[day-month-year]'.
+Each sheet contains summarized data related to a specific device identified as 'Driver [MAC_ADDR]' and are related to a specific hourly time slot identified by [Time Hours Slot]:
+
+ - The device is represented by its unique MAC ADDRESS. This address is available on MongoDB Database and Collection generated data.
+ - Each [Time Hours Slot] is represented on the sheet, by two fields named 'Start time' and 'End time' (ex. Start time: 01:00:00 and End time: 01:59:00)
+
+ARWS produces for each device and for each hourly time slot:
+        - the count of alarms for a given device in the given time slot, identified by the column 'Alarms recordered'
+        - the count of 'Off-Writs' seconds for a given device in the given time slot, identified by the column 'Off-Wrist Time'
+
+So given that a possible example of a sheet in a given day of report.xlsx is:
+
+Time Hours Slot		Driver DB:E7:74:2F:0A:60		Driver C1:4A:4D:79:62:C8		Driver DD:19:3C:14:30:41
+Start time	End time	Alarms recorded	Off-Wrist time	Alarms recorded	Off-Wrist time	Alarms recorded	Off-Wrist time
+
+00:00:00	00:59:00				0	0							0	0							0	0
+01:00:00	01:59:00				0	0							0	0							0	0
+02:00:00	02:59:00				0	0							0	0							0	0
+03:00:00	03:59:00				0	0							0	0							0	0
+04:00:00	04:59:00				0	0							0	0							0	0
+05:00:00	05:59:00				0	0							0	0							0	0
+06:00:00	06:59:00				0	0							0	0							0	0
+07:00:00	07:59:00				0	0							0	0							0	0
+08:00:00	08:59:00				0	0							0	0							0	0
+09:00:00	09:59:00				0	0							0	1140						0	0
+10:00:00	10:59:00				0	0							0	2860						0	0
+11:00:00	11:59:00				0	0							0	6140						0	0
+12:00:00	12:59:00				0	0							5	1331						0	0
+13:00:00	13:59:00				0	0							0	1301						3	4350
+14:00:00	14:59:00				0	0							0	2							2	900
+15:00:00	15:59:00				0	0							0	367							0	0
+16:00:00	16:59:00				0	0							0	0							0	0
+17:00:00	17:59:00				0	0							0	0							0	0
+18:00:00	18:59:00				0	0							0	0							0	0
+19:00:00	19:59:00				0	0							0	0							0	0
+20:00:00	20:59:00				0	0							0	0							0	0
+21:00:00	21:59:00				0	0							0	0							0	0
+22:00:00	22:59:00				0	0							0	0							0	0
+23:00:00	23:59:00				0	0							0	0							0	0
+
+
+### Analytic Reporter Web Directory Tree
+Analytic Reporter Web application is composed by the following set of directories as follow:
+
+AnalyticReporterWebServer
+|--- scripts
+|    |--- pythoninstall.sh
+|--- source
+|    |--- templates
+|    |    |--- login.html
+|    |    |--- generate_report.html
+|    |--- mongo
+|    |    |--- mongolib.py
+|    |--- analyticReporterWebServer.py
+|    |--- AnalyticReporterWebServer.conf
+|--- python_requirements
+|--- README
+
+
+
+### Analytic Reporter Web Software requirements
+ARWS can run on any platform (Windowsm, Linux, MacOS) if the following software requirements are satisfied:
+	* Python 3.8 and Python packages:
+		* PyMongo
+		* XlsWriter
+		* DateTime
+		* Flask
+		* flask-cors
+		* pyopenssl
+Such requirements can be installed easily by following the instructions contained into 'Install Analytic Reporter software requirements' section of this REAMDE.
+
+ARWC needs only a Web browser (Firefox, Chrome, IE, ...) in order to be executed and doesn't need any additional requirements.
+
+## Getting Started
+In order to start using Analytic Reporter Web you need to:
+
+	* Download the Analytic Reporter Web
+	* Install ARWS software requirements
+	* Configure the ARWS
+	* Launch the ARWS
+	* Connect to ARWS
+
+### Download Analytic Reporter Web
+In order to download Analytic Reporter application use the following command:
+
+	```
+		git clone https://github.com/giuseppe-pedone/AnalyticReporterWeb.git
+	```
+
+### Install Analytic Reporter Web Server software requirements
+Once downloaded the Analytic Reporter Web, in order to satisfy ARWS software requirements:
+
+* Install Python and Python system requirements by running on Linux ./scripts/pythoninstall.sh from ROOT directory:
+  
+  ```
+  	sudo ./scripts/pythoninstall.sh
+  
+  ```
+
+  on other platforms (Windows, MacOS) install manually Python3.8 and the following python packages (PyMongo, XlsWriter, DateTime, Flask, flask-cors)
+
+### Configure Analytic Reporter Web Server application
+
+To configure ARWS correctly you need to modify the AnalyticReporter.conf file contained into AnalyticReporterWebServer directory.
+It is a JSON document that contains all possible ARWS settings:
+
+	* mongoDatabaseName is the ID name of the mongodb database from which getting data (string)
+	* mongoCollectionName is the ID name of the mongodb collection from which getting data (string)
+	* mongoServerIP represents the IP address to use for mongodb connection, so the same IP where MongoDB server is running (string)
+	* mongoServerPort represents the TCP address to use for mongodb connection, so the same port where MongoDB server is running (int)
+	* analyticReporterWebServerIP represents the IP on which ARWS performs the binding (string)
+	* analyticReporterWebServerPort represents the PORT on which ARWS is listening to (int)
+	* analyticReporterWebServerLogDirectory: represents the directory path to store logs (string)
+	* analyticReporterWebServerLogFilename: represents the current log filename (string)
+	* analyticReporterWebServerMinimumLogLevel: represents the minimum log level of the server (string, possible values: DEBUG, INFO, WARNING, ERROR, CRITICAL)
+	* analyticReporterWebServerMaximumLogFileSizeInMB: represents the maximum size of a log file in MegaBytes (int)
+	* analyticReporterWebServerMaximumNumberOfLogFiles: represent the maximum number of log files to maintain (int)
+	* analyticReporterWebServerName: represents the Web Server name (string)
+	* analyticReporterWebServerInDebugMode : specifies if running the Web Server in debug mode or not (boolean, possible values: true, false)
+	* analyticReporterWebServerPassword: specifies the authentication password on login (string)
+	* analyticReporterWebServerSessionLifetimeSeconds: specifies the duration, in seconds, of the HTTPS session (int)  
+	* analyticReporterWebServerReportableApplications: specifies which applications are available for analytic reporting (string array) - current default set is [ "Predicts-v0", "Predicts-v1" ]
+
+### Launch Analytic Reporter Web Server
+* Launching ARWS by running directly python with the following command, from AnalyticReporterWebServer/source directory:
+  
+  ```
+  	sudo python3.8 ./analyticReporterWebServer.py
+  
+  ```
+
+Notes: It is supposed that the Analytic Reporter configuration file is named AnalyticReporter.conf and it is located into AnalyticReporterWebServer/source directory.
+
+### Connect to Analytic Reporter Web Server
+* In order to connect to ARWS use a simple browser and type the https url of the ARWS for example https://servername or https://serverip

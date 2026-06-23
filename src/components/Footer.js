@@ -1,153 +1,124 @@
 import React from "react";
+import { Box, Container, Grid, Text, Stack, Anchor, Group, Divider, Paper, Image } from "@mantine/core";
+import { IconExternalLink, IconDownload } from "@tabler/icons-react";
 import profileData from "../data/ProfileData";
 
+// Importa i tuoi file originali
 import GitHubLogo from "../logo/GitHubLogo.svg";
 import LinkedInLogo from "../logo/LinkedInLogo.svg";
 import GmailLogo from "../logo/GmailLogo.png";
-
 import ReactLogo from "../logo/ReactLogo.svg";
 import JSLogo from "../logo/JSLogo.svg";
 import HTMLLogo from "../logo/HTMLLogo.svg";
 import CSSLogo from "../logo/CSSLogo.svg";
+import CalLogo from "../logo/Cal.svg";
 
-import "./Footer.css";
+import i18NLogo from "../logo/i18N.svg";
+import MantineLogo from "../logo/Mantine.svg";
+import RailwayLogo from "../logo/Railway.svg";
+import RedisLogo from "../logo/Redis.svg";
 
 const Footer = () => {
-
   const year = new Date().getFullYear();
+  const { name, role, email, orcid, orcidLink, cvFile, contacts } = profileData;
 
-  const {
-    name,
-    role,
-    email,
-    orcid,
-    orcidLink,
-    cvFile,
-    contacts
-  } = profileData;
+  const techStack = [
+    { name: 'React', logo: ReactLogo },
+    { name: 'JavaScript', logo: JSLogo },
+    { name: 'HTML5', logo: HTMLLogo },
+    { name: 'CSS3', logo: CSSLogo },
+    { name: 'Matine CSS', logo: MantineLogo },
+    { name: 'Cal.com', logo: CalLogo },
+    { name: 'i18N', logo: i18NLogo },
+    { name: 'Railway', logo: RailwayLogo },
+    { name: 'Redis', logo: RedisLogo }
+  ];
 
   return (
-    <footer className="footer">
+    <Box component="footer" bg="gray.9" c="white" mt={80} pt={60}>
+      <Container size="xl">
+        <Grid gutter={40} pb={50} pl={80}>
+          
+          {/* ABOUT */}
+          <Grid.Col span={{ base: 12, md: 3 }}>
+            <Stack gap="xs">
+              <Text fw={700} size="lg">{name}</Text>
+              <Text size="sm" c="gray.4">{role}</Text>
+              <Text size="xs" c="gray.5" style={{ lineHeight: 1.6 }}>
+                Research engineer focused on intelligent systems, distributed architectures and system-level AI integration.
+              </Text>
+               {cvFile.map((cv, i) => (
+                <Anchor key={i} href={cv.path} download c="blue.4" size="sm" fw={600}>
+                  <Group gap={8}><IconDownload size={14}/> Download CV</Group>
+                </Anchor>
+              ))}
+            </Stack>
+          </Grid.Col>
 
-      <div className="footer-container">
+          {/* NAVIGATION */}
+          <Grid.Col span={{ base: 6, md: 2 }}>
+            <Stack gap="xs">
+              <Text fw={600} c="gray.5" tt="uppercase" size="xs">Navigation</Text>
+              {['Home', 'Profile', 'Projects', 'Resources', 'Contact'].map(link => (
+                <Anchor key={link} href={`/${link.toLowerCase()}`} c="gray.3" size="sm">{link}</Anchor>
+              ))}
 
-        {/* LEFT */}
-        <div className="footer-about">
-          <h3>{name}</h3>
-          <p className="footer-role">{role}</p>
+            </Stack>
+          </Grid.Col>
 
-          <p className="footer-bio">
-            Research engineer focused on intelligent systems,
-            distributed architectures and system-level AI integration.
-          </p>
+          {/* PROFESSIONAL (Con le tue immagini originali) */}
+          <Grid.Col span={{ base: 6, md: 3 }}>
+            <Stack gap="xs">
+              <Text fw={600} c="gray.5" tt="uppercase" size="xs">Professional</Text>
+              <Anchor href={orcidLink} target="_blank" c="gray.3" size="sm">ORCID: {orcid}</Anchor>
+              <Anchor href={contacts.github} target="_blank" c="gray.3" size="sm">
+                <Group gap={8}><Image src={GitHubLogo} w={16} /> GitHub</Group>
+              </Anchor>
+              <Anchor href={contacts.linkedin} target="_blank" c="gray.3" size="sm">
+                <Group gap={8}><Image src={LinkedInLogo} w={16} /> LinkedIn</Group>
+              </Anchor>
+              <Anchor href={`mailto:${email}`} c="gray.3" size="sm">
+                <Group gap={8}><Image src={GmailLogo} w={16} /> Email</Group>
+              </Anchor>
+              <br/>
 
-          <p className="footer-quote">
-            “Engineering intelligent systems that extend the capabilities of operating systems.”
-          </p>
-        </div>
+            </Stack>
+          </Grid.Col>
 
+          {/* SITE (Con i loghi tech originali) */}
+          <Grid.Col span={{ base: 12, md: 4 }}>
+            <Stack gap="xs">
+              <Text fw={600} c="gray.5" tt="uppercase" size="xs">Site</Text>
+              <Text size="sm" c="gray.3">Powered by</Text>
+              <Group gap="xs">
+                {techStack.map((tech) => (
+                  <Paper key={tech.name} bg="gray.8" px="sm" py={6} radius="sm" withBorder={false}>
+                    <Group gap={6}>
+                      <Image src={tech.logo} w={16} h={16} />
+                      <Text size="xs">{tech.name}</Text>
+                    </Group>
+                  </Paper>
+                ))}
+              </Group>
+            </Stack>
+          </Grid.Col>
+        </Grid>
 
-        {/* QUICK LINKS */}
-        <div className="footer-links">
-          <h4>Navigation</h4>
-
-          <a href="/">Home</a>
-          <a href="/profile">Profile</a>
-          <a href="#projects">Projects</a>
-          <a href="#resources">Resources</a>
-          <a href="#contacts">Contact</a>
-          <a href="#blog">Blog</a>
-        </div>
-
-
-        {/* PROFESSIONAL LINKS */}
-        <div className="footer-professional">
-          <h4>Professional</h4>
-
-          <a href={orcidLink} target="_blank" rel="noopener noreferrer">
-            ORCID: {orcid}
-          </a>
-
-          <a href={contacts.github} target="_blank" rel="noopener noreferrer">
-            <img src={GitHubLogo} alt="GitHub"/>
-            GitHub
-          </a>
-
-          <a href={contacts.linkedin} target="_blank" rel="noopener noreferrer">
-            <img src={LinkedInLogo} alt="LinkedIn"/>
-            LinkedIn
-          </a>
-
-          <a href={`mailto:${email}`}>
-            <img src={GmailLogo} alt="Email"/>
-            Email
-          </a>
-
-          {cvFile.map((cv, i) => (
-            <a key={i} href={cv.path} download>
-              Download CV
-            </a>
-          ))}
-
-        </div>
-
-
-        {/* TECH + SITE */}
-        <div className="footer-site">
-          <h4>Site</h4>
-          <div className="footer-powered">
-            <h4>Powered by</h4>
-                <div className="footer-tech">
-
-                    <span>
-                    <img src={ReactLogo} alt="React"/>
-                    React
-                    </span>
-
-                    <span>
-                    <img src={JSLogo} alt="JavaScript"/>
-                    JavaScript
-                    </span>
-
-                    <span>
-                    <img src={HTMLLogo} alt="HTML5"/>
-                    HTML5
-                    </span>
-
-                    <span>
-                    <img src={CSSLogo} alt="CSS3"/>
-                    CSS3
-                    </span>
-
-                </div>
-
-                <a
-                    href="https://github.com/Unix69"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Source Code ↗
-                </a>
-                </div>
-
-        </div>
-
-      </div>
-
-
-      {/* BOTTOM BAR */}
-      <div className="footer-bottom">
-
-        <p>
-          © {year} {name} — All rights reserved
-        </p>
-
-        <p className="footer-location">
-          Turin · Italy
-        </p>
-
-      </div>
-
-    </footer>
+        <Divider color="gray.8" />
+        <Stack align="center" py="xl" gap="xs">
+          <Text size="xs" c="gray.6" ta="center">
+            © {year} {name} — All rights reserved · Turin · Italy
+          </Text>
+          <Anchor 
+                size="xs" 
+                c="gray.7" 
+                onClick={() => localStorage.removeItem('user-consent') || window.location.reload()}
+              >
+                Reset Cookies
+          </Anchor>
+        </Stack>
+      </Container>
+    </Box>
   );
 };
 

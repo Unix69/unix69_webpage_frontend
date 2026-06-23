@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1439752250 source:c:\users\peppe\desktop\graph\graph.c
+	<stdio.h>
+	<stdlib.h>
+	"graph.h"
+	"queue.h"
+
+1439751705 c:\users\peppe\desktop\graph\graph.h
+
+1439751935 c:\users\peppe\desktop\graph\queue.h
+
+1439752115 source:c:\users\peppe\desktop\graph\queue.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"queue.h"
+

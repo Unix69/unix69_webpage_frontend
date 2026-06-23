@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1441116558 source:c:\users\peppe\desktop\labirinto\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1441116558 source:c:\users\peppe\desktop\programmazione\c\labirinto\main.c
+	<stdio.h>
+	<stdlib.h>
+

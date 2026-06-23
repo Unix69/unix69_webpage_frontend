@@ -1,0 +1,248 @@
+<html xmlns:ns0="http://macVmlSchemaUri">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Courier;
+	panose-1:2 7 4 9 2 2 5 2 4 4;}
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:Times;
+	panose-1:2 2 6 3 5 4 5 2 3 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Times","serif";}
+h1
+	{mso-style-link:"Titolo 1 Carattere";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:24.0pt;
+	font-family:"Times","serif";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+tt
+	{font-family:"Courier New";}
+span.Titolo1Carattere
+	{mso-style-name:"Titolo 1 Carattere";
+	mso-style-link:"Titolo 1";
+	font-family:"Calibri","sans-serif";
+	color:#365F91;
+	font-weight:bold;}
+p.textbody, li.textbody, div.textbody
+	{mso-style-name:textbody;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Times","serif";
+	color:black;}
+p.textbodymsonormal, li.textbodymsonormal, div.textbodymsonormal
+	{mso-style-name:textbodymsonormal;
+	margin-right:0cm;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-family:"Times","serif";}
+p.Heading1, li.Heading1, div.Heading1
+	{mso-style-name:"Heading 1";
+	mso-style-link:"Heading 1 Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Times","serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Calibri","sans-serif";
+	color:#345A8A;
+	font-weight:bold;}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+<meta name=Title content="">
+<meta name=Keywords content="">
+<meta name=created content="00:00:00">
+<meta name=changed content="2016-05-30T09:45:58.614000000">
+</head>
+
+<body bgcolor=white lang=IT link=blue vlink=purple>
+
+<div class=WordSection1>
+
+<p class=textbody><b><span style='font-size:18.0pt'>­PS 2017 - Laboratorio
+OS161</span></b></p>
+
+<p class=textbody>&nbsp;</p>
+
+<h1 style='margin-bottom:14.45pt'><span style='font-size:20.0pt'>Rendere
+eseguibile un programma utente in OS161 (USERP)</span></h1>
+
+<p class=textbody>Il laboratorio può essere considerato come una prosecuzione
+del precedente, per la parte relativa a thread e system calls.</p>
+
+<p class=textbody>I programmi utente OS161, richiamabili mediante il comando “p
+programma”, &nbsp;ad esempio “<span style='font-family:"Courier New"'>p
+testbin/palin”</span>, “<span style='font-family:"Courier New"'>p sbin/reboot”,</span>
+non sono eseguibili in modo corretto, in quanto, nella versione base di OS161,
+manca il supporto per</p>
+
+<p class=textbody style='margin-left:36.0pt'><span style='font-family:Symbol'>·</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+la system call exit</p>
+
+<p class=textbody style='margin-left:36.0pt'><span style='font-family:Symbol'>·</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+la gestione della memoria virtuale con restituzione della memoria allocata ai
+processi</p>
+
+<p class=textbody style='margin-left:36.0pt'><span style='font-family:Symbol'>·</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+gli argomenti al main (argv, argc)</p>
+
+<p class=textbody>Come conseguenza, un programma, che chiama la <span
+style='font-family:"Courier New"'>exit</span> al termine della esecuzione,
+provoca un crash del sistema. Si chiede di realizzare il supporto &nbsp;per i
+punti precedenti.</p>
+
+<p class=textbody>Come ulteriore osservazione, si consideri la modalità di
+attivazione di un nuovo thread &nbsp;da parte della <span style='font-family:
+"Courier New"'>menu_execute</span>,  alla chiamata di <span style='font-family:
+"Courier New"'>cmd_dispatch</span>,  per rispondere al comando “p ….”.</p>
+
+<p class=textbody>Questa attiva un nuovo thread mediante <span
+style='font-family:"Courier New"'>thread_fork, </span>nella funzione <span
+style='font-family:"Courier New"'>common_prog</span>,  da cui si esce SENZA
+attendere il termine del thread. Il nuovo thread esegue la funzione <span
+style='font-family:"Courier New"'>cmd_progthread </span> (che a sua volta
+chiama <span style='font-family:"Courier New"'>runprogram)</span><span
+style='font-family:"Times New Roman","serif"'>.</span><span style='font-family:
+"Courier New"'> </span>La funzione <span style='font-family:"Courier New"'>common_prog</span>
+crea inoltre un descrittore di processo,  mediante <span style='font-family:
+"Courier New"'>proc_create_runprogram</span>.</p>
+
+<p class=textbody>Si noti quindi che un processo è sia processo che thread
+(potrebbe avere più thread, ma in questo caso ce n’è uno solo).</p>
+
+<p class=textbody>Il problema di os161 nella versione base, in relazione alla
+fine di un processo, è legato a due aspetti:</p>
+
+<p class=textbody style='margin-left:36.0pt;text-indent:-18.0pt'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Per il processo,  che termina con <span style='font-family:"Courier New"'>exit</span>, 
+non ancora realizzata, non si chiamano le funzioni di chiusura e/o distruzione,
+delle strutture dati</p>
+
+<p class=textbody style='margin-left:36.0pt;text-indent:-18.0pt'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Il programma padre (in questo caso la gestione del menu di
+comandi, oppure la funzione <span style='font-family:"Courier New"'>common_prog</span>, 
+non ha gli strumenti per attendere la fine del processo creato. Ciò fa si che
+il menu passi direttamente ad attendere l’input di un nuovo comando (questo può
+creare problemi in quanto l’input del menu si sovrappone all’eventuale input
+del programma utente attivato).</p>
+
+<p class=textbody><b><span style='font-size:20.0pt'>System call _exit</span></b></p>
+
+<p class=textbody>Il supporto per la _<span style='font-family:"Courier New"'>exit</span>
+(chiamata dalla <span style='font-family:"Courier New"'>exit</span> C) si
+ottiene lavorando in modo simile alle system call <span style='font-family:
+"Courier New"'>read</span> e <span style='font-family:"Courier New"'>write</span>.
+La funzione C <span style='font-family:"Courier New"'>exit</span> (file <span
+style='font-family:"Courier New"'>userland/lib/libc/stdlib/exit.c</span>)
+riceve un unico parametro intero (il codice di errore/successo). </p>
+
+<p class=textbody>Il suo compito è quello di</p>
+
+<p class=textbody style='margin-left:36.0pt'><span style='font-family:Symbol'>·</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+mettere questo codice nel campo previsto (va aggiunto !) del descrittore di
+processo/thread (<span style='font-family:"Courier New"'>struct thread o</span>
+<span style='font-family:"Courier New"'>curthread</span>, si veda <span
+style='font-family:"Courier New"'>kern/include/thread.h</span><span
+style='font-family:"Times New Roman","serif"'> e/o </span><span
+style='font-family:"Courier New"'>struct proc </span>in <span style='font-family:
+"Courier New"'>kern/include/proc.h</span>). Tale codice dovrà eventualmente
+essere letto da un altro thread.</p>
+
+<p class=textbody style='margin-left:36.0pt'><span style='font-family:Symbol'>·</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Far terminare il thread (e il processo) che chiama la <span style='font-family:
+"Courier New"'>exit</span>,  chiamando la funzione <span style='font-family:
+"Courier New"'>thread_exit</span> (file <span style='font-family:"Courier New"'>thread.c</span>),
+la quale pulisce la struttura dati del thread chiamante e lo manda in stato di
+zombie. Il descrittore del thread non viene distrutto (è quindi ancora
+leggibile da un altro thread). La distruzione vera e propria sarà effettuate
+dalla <span style='font-family:"Courier New"'>thread_destroy</span>, chiamata
+dalla <span style='font-family:"Courier New"'>exorcise</span> alla successiva <span
+style='font-family:"Courier New"'>thread_switch</span>. </p>
+
+<p class=textbody>Al momento attuale non si chiede di realizzare la
+sicronizzazione né il passaggio di argomenti al main, Quindi si consiglia una
+versione ridotta della <span style='font-family:"Courier New"'>exit</span>. 
+che sia in grado quanto meno di attivare la <span style='font-family:"Courier New"'>as_destroy</span>
+(attivata dalla  <span style='font-family:"Courier New"'>proc_destroy</span>, 
+attualmente non chiamata). </p>
+
+<p class=textbody><b><span style='font-size:20.0pt'>Gestione della memoria
+virtuale</span></b> </p>
+
+<p class=textbody>Os161, nella versione base contiene un gestore di memoria
+virtuale che effettua unicamente allocazione contigua di memoria reale, senza
+mai rilasciarla (si veda il file <span style='font-family:"Courier New"'>kern/arch/mips/vm/dumbvm.c</span>).
+Ad ogni chiamata a <span style='font-family:"Courier New"'>getppages/ram_stealmem
+</span>viene allocato un nuovo intervallo nella ram fisica, che non verrà più
+rilasciato.</p>
+
+<p class=textbody>Si consiglia di realizzare un allocatore di memoria contigua,
+che, anziché utilizzare unicamente le funzioni <span style='font-family:"Courier New"'>getppages/ram_stealmem</span>
+nella versione attuale, le modifichi, mantenendo traccia delle pagine (o frame)
+di RAM occupate e libere. Si consiglia, in questa prima versione,  di
+realizzare una “bitmap” o più semplicemente un vettore di flag (interi o char).</p>
+
+<p class=textbody>Ciò richiede di modificare la ricerca di RAM libera,  da
+parte della <span style='font-family:"Courier New"'>as_prepare_load</span> (per
+inizializzare le struttura dati) e la restituzione di memoria da parte della <span
+style='font-family:"Courier New"'>as_destroy</span>. Si consiglia di modificare
+la <span style='font-family:"Courier New"'>getppages</span> e/o  la <span
+style='font-family:"Courier New"'>ram_stealmem</span> (per allocare memoria
+fisica contigua). ATTENZIONE: <span style='font-family:"Courier New"'>getppages
+</span>viene chiamata sia da <span style='font-family:"Courier New"'>kmalloc-&gt;alloc_kpages</span>
+(per allocazione dinamica al kernel) che da <span style='font-family:"Courier New"'>as_prepare_load</span>
+per allocare memoria ai processi user. </p>
+
+<p class=textbody>Si consiglia di usare un vettore statico per la bitmap (o il
+vettore di flag), di dimensione opportuna (in base alla dimensione usata per la
+RAM) evitando quindi di allocarlo dinamicamente mediante <span
+style='font-family:"Courier New"'>kmalloc</span> (si introdurrebbe un problema
+di dipendenze circolari).</p>
+
+<p class=textbody>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>
