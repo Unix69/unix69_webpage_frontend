@@ -55,7 +55,7 @@ const header_navigator_tabs = [
   ]},
   { label: 'Downloads', href: '#downloads' },
   { label: 'References', href: '#references' },
-  { label: 'Contacts', href: '#contacts' }
+  { label: 'Contacts', path: '/contacts' }
 ];
 
 
@@ -101,6 +101,7 @@ function Layout() {
     case "/languages": currentPageName = "Languages"; break;
     case "/lessons": currentPageName = "Lessons"; break;
     case "/consulting": currentPageName = "Consulting"; break;
+    case "/contacts": currentPageName = "Contacts"; break;
     default: currentPageName = "Unknown";
   }
 

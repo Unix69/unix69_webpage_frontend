@@ -32,7 +32,7 @@ import {
 
 import profileData from '../data/ProfileData';
 
-export default function Contact() {
+export default function Contacts() {
   const { t } = useTranslation();
   const { contacts, email, phone } = profileData;
 
