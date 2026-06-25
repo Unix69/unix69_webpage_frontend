@@ -20,6 +20,8 @@ i18n
           "Downloads": "Downloads", "downloads": "downloads",
           "References": "References", "references": "references",
           "Contacts": "Contacts", "contacts": "contacts",
+          "book_lesson": "Book a Lesson",
+          "book_consulting": "Book Consulting",
 
           "home_page": {
             "cta_consulting": "Explore consulting services",  
@@ -58,6 +60,25 @@ i18n
             "footer_desc": "Automated scheduling systems handle time zones and eliminate asynchronous emails. Gain immediate access to dedicated calendars.",
             "footer_btn_tutoring": "Book Tutoring",
             "footer_btn_consulting": "Book B2B Consulting"
+          },
+          "contact": {
+            "badge": "GET IN TOUCH",
+            "title": "Let's Connect",
+            "subtitle": "Choose the best channel to reach out, book a direct live session, or check my current availability.",
+            "info_title": "Contact Information",
+            "info_desc": "Reach out directly through official professional channels.",
+            "email_label": "EMAIL ME",
+            "phone_label": "CALL OR WHATSAPP",
+            "hours_title": "AVAILABILITY & HOURS",
+            "response_time": "Response time: ~2 hours",
+            "find_me": "FIND ME ON",
+            "booking_title": "Instant Calendar Booking",
+            "booking_desc": "Skip the back-and-forth emails. Select a time slot directly on the platform to schedule our next live interaction.",
+            "booking_cta": "Book Live Session",
+            "booking_lessons_note": "For dedicated private or group mentoring programs.",
+            "booking_consulting_note": "For strategic tech planning and architectural reviews.",
+            "platform_rules_title": "Platform Guidelines",
+            "platform_rules_desc": "All learning materials, code repositories, and documentation hosted on this site are 100% free and open-source."
           },
 
           "lessons": {
@@ -102,6 +123,8 @@ i18n
           "Downloads": "Downloads", "downloads": "downloads",
           "References": "Riferimenti", "references": "riferimenti",
           "Contacts": "Contatti", "contacts": "contatti",
+          "book_lesson": "Prenota una Lezione",
+          "book_consulting": "Prenota Consulenza",
 
           "home_page": {
             "hub_badge": "PORTFOLIO & HUB PROFESSIONALE",
@@ -141,7 +164,25 @@ i18n
             "footer_btn_tutoring": "Prenota Tutoring",
             "footer_btn_consulting": "Prenota Consulenza B2B"
           },
-
+          "contact": {
+              "badge": "CONTATTI",
+              "title": "Restiamo in Contatto",
+              "subtitle": "Scegli il canale migliore per scrivermi, prenota una sessione live o verifica le disponibilità attuali.",
+              "info_title": "Informazioni di Contatto",
+              "info_desc": "Resta in contatto direttamente tramite i canali professionali ufficiali.",
+              "email_label": "INVIAMI UN'EMAIL",
+              "phone_label": "CHIAMATA O WHATSAPP",
+              "hours_title": "ORARI E DISPONIBILITÀ",
+              "response_time": "Tempo di risposta: ~2 ore",
+              "find_me": "TROVAMI SU",
+              "booking_title": "Prenotazione Istantanea Calendario",
+              "booking_desc": "Evita continui scambi di email. Seleziona uno slot orario direttamente sulla piattaforma per pianificare la nostra prossima sessione live.",
+              "booking_cta": "Prenota Sessione Live",
+              "booking_lessons_note": "Per percorsi di mentoring dedicati, privati o di gruppo.",
+              "booking_consulting_note": "Per pianificazione tecnologica strategica e review architetturali.",
+              "platform_rules_title": "Linee Guida della Piattaforma",
+              "platform_rules_desc": "Tutto il materiale didattico, i repository di codice e la documentazione presenti sul sito sono 100% free e open-source."
+          },
           "lessons": {
             "configure_session": "Configura la tua sessione",
             "full_name": "Nome Completo",

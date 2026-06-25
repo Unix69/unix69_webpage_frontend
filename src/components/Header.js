@@ -31,7 +31,7 @@ const header_navigator_tabs = [
   ] },
   { label: 'Downloads', href: '#downloads' },
   { label: 'References', href: '#references' },
-  { label: 'Contacts', href: '#contacts' }
+  { label: 'Contacts', path: '/contacts' }
 ];
 
 function Header({ currentPageName }) {

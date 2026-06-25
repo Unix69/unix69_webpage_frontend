@@ -25,6 +25,7 @@ import Languages from "./components/Languages";
 import Lessons from "./components/Lessons";
 import Consulting from "./components/Consulting";
 import CookieBanner from "./components/CookieBanner";
+import Contacts from "./components/Contacts";
 
 // Copiamo qui la tua configurazione dei tab per passarla alla Navbar mobile
 const header_navigator_tabs = [
@@ -145,6 +146,7 @@ function Layout() {
           <Route path="/languages" element={<Languages />} />
           <Route path="/lessons" element={<Lessons />} />
           <Route path="/consulting" element={<Consulting />} />
+          <Route path="/contacts" element={<Contacts />} />
         </Routes>
         <Footer />
       </AppShell.Main>
