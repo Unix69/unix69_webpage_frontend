@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/unix69_webpage_frontend/static/css/main.691ff2f8.css",
-    "main.js": "/unix69_webpage_frontend/static/js/main.acbc4d81.js",
+    "main.js": "/unix69_webpage_frontend/static/js/main.653ff667.js",
     "static/media/HeaderInfoBackgroundImage.jpg": "/unix69_webpage_frontend/static/media/HeaderInfoBackgroundImage.8df268ce98147b463645.jpg",
     "static/media/profile_photo.jpg": "/unix69_webpage_frontend/static/media/profile_photo.61888be08f519cf4d18b.jpg",
     "static/media/PolitoLogo.svg": "/unix69_webpage_frontend/static/media/PolitoLogo.bcd90217d26f33ae23507e5ce03f2e37.svg",
@@ -33,10 +33,10 @@
     "static/media/Redis.svg": "/unix69_webpage_frontend/static/media/Redis.ce454c1d84fa89920d2db191e023f6ef.svg",
     "static/media/Railway.svg": "/unix69_webpage_frontend/static/media/Railway.1f2641b7b1f2c920ee9ce51d2aa48c99.svg",
     "main.691ff2f8.css.map": "/unix69_webpage_frontend/static/css/main.691ff2f8.css.map",
-    "main.acbc4d81.js.map": "/unix69_webpage_frontend/static/js/main.acbc4d81.js.map"
+    "main.653ff667.js.map": "/unix69_webpage_frontend/static/js/main.653ff667.js.map"
   },
   "entrypoints": [
     "static/css/main.691ff2f8.css",
-    "static/js/main.acbc4d81.js"
+    "static/js/main.653ff667.js"
   ]
 }
