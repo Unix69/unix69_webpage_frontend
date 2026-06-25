@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import { 
   Modal,
   Tabs, 
@@ -108,7 +109,8 @@ import {
 } from '@tabler/icons-react';
 
 
-
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
 import { DateTimePicker } from '@mantine/dates';
 
 
@@ -170,7 +172,7 @@ const RAILWAY_BACKEND_LINK = "https://unix69webpagebackend-production.up.railway
 
 
 
-const subjects = [
+export const subjects = [
   'Programming',
   'Operating Systems',
   'Networking',
@@ -203,7 +205,7 @@ const availability = [
   },
 ];
 
-const pricing = [
+export const pricing = [
   {
     title: 'Single Lesson',
     price: '€35',
@@ -355,7 +357,7 @@ export function BookingFormSection({ id, lessonInfo, setLessonInfo, lessonsTree,
 }
 
 
-const ALLOWED_BOOK_FORM_VALUES = {
+export const ALLOWED_BOOK_FORM_VALUES = {
   duration: ['1h', '2h'],
   payment: ['pay-now', 'pay-later'],
   type: ['Private Lessons', 'Hands-on Projects','Exam Tutoring','Live Pair Programming','Thesis Support','Homework & Tasks', 'Ongoing Mentorship']
@@ -416,6 +418,8 @@ export default function Lessons() {
     type: 'Private Lessons',
     payment: 'pay-later'
   });
+  
+  
 
 
   const subjectOptions = useMemo(() => {
@@ -565,7 +569,19 @@ export default function Lessons() {
   }
 
 
+  const { hash } = useLocation();
 
+  useEffect(() => {
+    if (hash) {
+      // Aspetta un piccolissimo delay per essere sicuri che il DOM sia pronto
+      setTimeout(() => {
+        const element = document.getElementById(hash.replace('#', ''));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100); 
+    }
+  }, [hash, lessonsTree]);
   
   // 2. Sposta qui gli useEffect
   useEffect(() => {
@@ -1036,8 +1052,18 @@ function SubjectCard({ subject, search }) {
         <Box mt="md" pt="md" style={{ borderTop: '1px solid var(--mantine-color-gray-2)', maxHeight: '300px', overflowY: 'auto' }}>
           {visibleChildren.map((child, i) => (
             child.type === 'folder' 
-              ? <DirectoryNode key={child.path || i} node={child} />
-              : <FileItem key={child.path || i} file={child} />
+              ? <DirectoryNode 
+                  key={child.path || i} 
+                  node={child} 
+                  selectedPaths={new Set()} 
+                  onToggle={() => {}} 
+                />
+              : <FileItem 
+                  key={child.path || i} 
+                  file={child} 
+                  selectedPaths={new Set()} 
+                  onToggle={() => {}} 
+                />
           ))}
         </Box>
       </Collapse>
@@ -1934,9 +1960,120 @@ export function MaterialsSection({ id, lessonsTree }) {
 
 
 
+
 const ActionPanel = ({ item, type }) => {
+  // Risolve l'URL di base a seconda che tu usi Create React App o Vite
+  const baseUrl = process.env.PUBLIC_URL || import.meta.env?.BASE_URL || '';
+  const cleanBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+
+  // Funzione universale per forzare il download nel browser
+  const triggerDownload = (url, fileName) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleCopy = () => {
-    navigator.clipboard.writeText(window.location.origin + item.path);
+    // Safe check sul path
+    const filePath = item?.path || item?.download_url || item?.url || '';
+    if (!filePath) return;
+
+    const cleanPath = filePath.startsWith('/') ? filePath.slice(1) : filePath;
+    const fullUrl = window.location.origin + cleanBase + cleanPath;
+    navigator.clipboard.writeText(fullUrl);
+  };
+
+  const handleDownloadRaw = () => {
+    // Cerca il percorso in tutte le proprietà possibili per massima compatibilità
+    const filePath = item?.path || item?.download_url || item?.url || '';
+    
+    if (!filePath) {
+      console.error("Proprietà del percorso non trovata nell'oggetto passato ad ActionPanel:", item);
+      alert("Errore: Impossibile scaricare questo elemento, percorso file non disponibile.");
+      return;
+    }
+
+    const cleanPath = filePath.startsWith('/') ? filePath.slice(1) : filePath;
+    const fileUrl = `${cleanBase}${cleanPath}`;
+    const fileName = item.name || cleanPath.split('/').pop() || 'download';
+    
+    triggerDownload(fileUrl, fileName);
+  };
+
+  const handleDownloadZip = async () => {
+    const zip = new JSZip();
+    let fileCount = 0;
+
+    // Recursive function to traverse the node tree
+    const downloadAndZipFolder = async (node, currentZipFolder) => {
+      if (node.type === 'file') {
+        const filePath = node.path || node.download_url || node.url || '';
+        if (!filePath) return;
+
+        try {
+          const cleanPath = filePath.startsWith('/') ? filePath.slice(1) : filePath;
+          const fileUrl = `${cleanBase}${cleanPath}`;
+
+          const response = await fetch(fileUrl);
+          if (!response.ok) throw new Error(`Fetch error: ${response.status}`);
+          const blob = await response.blob();
+
+          // If it's a folder structure, add it inside the folder. 
+          // If it's a single file at root level, currentZipFolder will handle it directly.
+          if (currentZipFolder) {
+            currentZipFolder.file(node.name, blob);
+          } else {
+            zip.file(node.name, blob);
+          }
+          fileCount++;
+        } catch (err) {
+          console.error(`Failed to include file in ZIP: ${node.name}`, err);
+        }
+      } else if (node.type === 'folder' && node.children) {
+        const newZipFolder = currentZipFolder ? currentZipFolder.folder(node.name) : zip.folder(node.name);
+        for (const child of node.children) {
+          await downloadAndZipFolder(child, newZipFolder);
+        }
+      }
+    };
+
+    try {
+      console.log(`Compressing ${item.name}...`);
+
+      if (type === 'file') {
+        // Direct processing if the target itself is a single file
+        await downloadAndZipFolder(item, null);
+      } else {
+        // Target is a folder: create a root directory inside the ZIP and loop through children
+        const rootZipFolder = zip.folder(item.name);
+        if (item.children) {
+          for (const child of item.children) {
+            await downloadAndZipFolder(child, rootZipFolder);
+          }
+        }
+      }
+
+      if (fileCount === 0) {
+        alert("The target is empty or no files could be downloaded.");
+        return;
+      }
+
+      // Generate the ZIP file
+      const content = await zip.generateAsync({ type: "blob" });
+      
+      // Extract name without extension if it's a file, to avoid "document.pdf.zip"
+      const outputName = type === 'file' ? item.name.substring(0, item.name.lastIndexOf('.')) || item.name : item.name;
+      
+      // Save the file
+      saveAs(content, `${outputName}.zip`);
+      
+    } catch (error) {
+      console.error("Error generating ZIP archive:", error);
+      alert("An error occurred while creating the ZIP archive.");
+    }
   };
 
   return (
@@ -1944,15 +2081,19 @@ const ActionPanel = ({ item, type }) => {
       <ActionIcon variant="subtle" color="gray" title="Copy Link" onClick={handleCopy}>
         <IconLink size={16} />
       </ActionIcon>
-      <ActionIcon variant="subtle" color="blue" title="Download Raw" onClick={() => console.log('Raw:', item.path)}>
+      
+      {/* Ora scarica il file reale invece di fare solo il console.log */}
+      <ActionIcon variant="subtle" color="blue" title="Download Raw" onClick={handleDownloadRaw}>
         <IconDownload size={16} />
       </ActionIcon>
-      <ActionIcon variant="subtle" color="green" title="Download ZIP" onClick={() => console.log('ZIP:', item.path)}>
+      
+      <ActionIcon variant="subtle" color="green" title="Download ZIP" onClick={handleDownloadZip}>
         <IconFileZip size={16} />
       </ActionIcon>
     </Group>
   );
 };
+
 
 
 const getStatsForNode = (node) => {

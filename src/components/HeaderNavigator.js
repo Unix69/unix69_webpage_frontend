@@ -1,11 +1,11 @@
 import React from 'react';
-import { Menu, Group, UnstyledButton, Box } from '@mantine/core';
+import { Menu, Group, UnstyledButton, Box, Stack, NavLink } from '@mantine/core';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   IconChevronRight, IconHome, IconUser, IconBooks, IconCode, 
   IconDownload, IconMessage, IconSettings, IconCategory 
 } from '@tabler/icons-react';
-import { useTranslation } from 'react-i18next'; // <--- IMPORTANTE
+import { useTranslation } from 'react-i18next';
 
 import './HeaderNavigator.css';
 
@@ -20,11 +20,12 @@ const navIcons = {
   'Contacts': <IconMessage size={18} />
 };
 
-function HeaderNavigator({ tabs = [] }) {
+function HeaderNavigator({ tabs = [], isMobile = false, onCloseMobileMenu }) {
   const location = useLocation();
-  const { t } = useTranslation(); // <--- INIZIALIZZA LA TRADUZIONE
+  const { t } = useTranslation();
 
-  const renderDropdown = (items, currentPath) => {
+  // --- RENDERING DESKTOP: I tuoi dropdown Menu standard ---
+  const renderDesktopDropdown = (items, currentPath) => {
     if (!items) return null;
 
     return items.map((item) => {
@@ -39,11 +40,11 @@ function HeaderNavigator({ tabs = [] }) {
                 c="white"
                 styles={{ item: { backgroundColor: 'transparent', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.2)' } } }}
               >
-                {t(item.label)} {/* <--- TRADUZIONE NEL DROPDOWN */}
+                {t(item.label)}
               </Menu.Item>
             </Menu.Target>
             <Menu.Dropdown bg="blue.9">
-              {renderDropdown(item.dropdown, currentPath)}
+              {renderDesktopDropdown(item.dropdown, currentPath)}
             </Menu.Dropdown>
           </Menu>
         );
@@ -65,14 +66,81 @@ function HeaderNavigator({ tabs = [] }) {
             }
           }}
         >
-          {t(item.label)} {/* <--- TRADUZIONE NEL DROPDOWN ITEM */}
+          {t(item.label)}
         </Menu.Item>
       );
     });
   };
 
+  // --- RENDERING MOBILE: NavLink verticali ricorsivi (Accordion-style) ---
+  const renderMobileTabs = (items) => {
+    return items.map((item) => {
+      const isActive = isTabActive(item, location.pathname);
+
+      if (item.dropdown) {
+        return (
+          <NavLink
+            key={item.label}
+            label={t(item.label)}
+            leftSection={navIcons[item.label] || null}
+            childrenOffset="md"
+            defaultOpened={isActive}
+            styles={{
+              root: { color: isActive ? '#ffeb3b' : 'white', fontWeight: 700 },
+              label: { fontSize: '15px' }
+            }}
+          >
+            {renderMobileTabs(item.dropdown)}
+          </NavLink>
+        );
+      }
+
+      return (
+        <NavLink
+          key={item.label}
+          component={item.path ? Link : 'a'}
+          to={item.path}
+          href={item.href}
+          label={t(item.label)}
+          leftSection={navIcons[item.label] || null}
+          active={isActive}
+          onClick={onCloseMobileMenu} // Chiude il drawer laterale quando clicchi su un link finale
+          styles={{
+            root: {
+              color: isActive ? '#ffeb3b' : 'white',
+              backgroundColor: isActive ? 'rgba(0, 0, 0, 0.2)' : 'transparent',
+              borderLeft: isActive ? '4px solid #ffeb3b' : '4px solid transparent',
+              fontWeight: 600
+            }
+          }}
+        />
+      );
+    });
+  };
+
+  // ==========================================
+  // RENDER STRUTTURA MOBILE (Laterale/Verticale)
+  // ==========================================
+  if (isMobile) {
+    return (
+      <Box component="nav" p="md" style={{ height: '100%' }}>
+        <Stack gap={4}>
+          {renderMobileTabs(tabs)}
+        </Stack>
+      </Box>
+    );
+  }
+
+  // ==========================================
+  // RENDER STRUTTURA DESKTOP (Orizzontale)
+  // ==========================================
   return (
-    <Box component="nav" px="md" style={{ background: 'radial-gradient(circle, #1f62ce, #1f76b4)', borderBottom: '2px solid #1f4eb4' }}>
+    <Box 
+      component="nav" 
+      px="md" 
+      visibleFrom="md" // Nasconde l'intero header orizzontale su mobile usando i breakpoint di Mantine
+      style={{ background: 'radial-gradient(circle, #1f62ce, #1f76b4)', borderBottom: '2px solid #1f4eb4' }}
+    >
       <Group gap={4}>
         {tabs.map((tab) => {
           const isActive = isTabActive(tab, location.pathname);
@@ -89,7 +157,6 @@ function HeaderNavigator({ tabs = [] }) {
               }}
               styles={{ root: { '&:hover': { backgroundColor: 'rgba(128, 9, 9, 0.2)' } } }}
             >
-              {/* Usiamo tab.label per prendere l'icona (chiave inglese), ma t(tab.label) per il testo */}
               {navIcons[tab.label] || null} {t(tab.label)} 
             </UnstyledButton>
           );
@@ -99,7 +166,7 @@ function HeaderNavigator({ tabs = [] }) {
               <Menu key={tab.label} position="bottom-start" offset={-4} trigger="hover" openDelay={0}>
                 <Menu.Target>{tabContent}</Menu.Target>
                 <Menu.Dropdown bg="blue.9" style={{ borderRadius: '0 0 8px 8px' }}>
-                  {renderDropdown(tab.dropdown, location.pathname)} 
+                  {renderDesktopDropdown(tab.dropdown, location.pathname)} 
                 </Menu.Dropdown>
               </Menu>
             );
@@ -116,7 +183,6 @@ function HeaderNavigator({ tabs = [] }) {
   );
 }
 
-// Assicurati che isTabActive sia definita nel file (come l'avevi già)
 const isTabActive = (tab, currentPath) => {
   if (!currentPath) return false;
   if (tab.path === currentPath) return true;

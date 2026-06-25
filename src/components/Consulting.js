@@ -1,7 +1,7 @@
 
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useRef } from 'react';
-
+import { useLocation } from 'react-router-dom';
 // Mantine Core
 import { 
   Modal, Tabs, TextInput, Container, Title, Badge, SimpleGrid, rem, 
@@ -96,11 +96,11 @@ const RAILWAY_BACKEND_LINK = "https://unix69webpagebackend-production.up.railway
 
 
 
-const ALLOWED_CONSULTING_BOOK_FORM_VALUES = {
+export const ALLOWED_CONSULTING_BOOK_FORM_VALUES = {
   durations: ['30 min', '1 h', '2 h'],
   payment_methods: ['pay-now', 'pay-later'],
   
-  business_domains: [
+  buisness_domains: [
     'Industrial & Automation',
     'Automotive & Aerospace',
     'Healthcare & BioTech',
@@ -140,39 +140,39 @@ const ALLOWED_CONSULTING_BOOK_FORM_VALUES = {
 
 const durations = ALLOWED_CONSULTING_BOOK_FORM_VALUES.durations;
 const payment_methods = ALLOWED_CONSULTING_BOOK_FORM_VALUES.payment_methods;
-const business_domains = ALLOWED_CONSULTING_BOOK_FORM_VALUES.business_domains;
+const buisness_domains = ALLOWED_CONSULTING_BOOK_FORM_VALUES.buisness_domains;
 const application_domains = ALLOWED_CONSULTING_BOOK_FORM_VALUES.application_domains;
 const job_categories = ALLOWED_CONSULTING_BOOK_FORM_VALUES.job_categories;
 
 
-const business_domains_desc_map = {
-  [business_domains[0]]: "Automation and control systems for high-efficiency production lines.",
-  [business_domains[1]]: "Advanced software solutions for next-gen vehicles and aerial systems.",
-  [business_domains[2]]: "Digital transformation for diagnostic tools and biotech research.",
-  [business_domains[3]]: "Optimization of supply chain networks and intelligent fleet tracking.",
-  [business_domains[4]]: "Secure financial systems, high-frequency trading, and banking infrastructure.",
-  [business_domains[5]]: "IIoT implementation and digital twins for smart manufacturing.",
-  [business_domains[6]]: "Smart grid management and renewable energy efficiency optimization.",
-  [business_domains[7]]: "Precision agriculture software and automated crop monitoring.",
-  [business_domains[8]]: "Systems for urban monitoring, sustainability, and green energy management.",
-  [business_domains[9]]: "Scalable platforms for omnichannel retail and user experience.",
-  [business_domains[10]]: "Enterprise software for team optimization and resource management.",
-  [business_domains[11]]: "High-performance streaming, content delivery, and interactive media."
+const buisness_domains_desc_map = {
+  [buisness_domains[0]]: "Automation and control systems for high-efficiency production lines.",
+  [buisness_domains[1]]: "Advanced software solutions for next-gen vehicles and aerial systems.",
+  [buisness_domains[2]]: "Digital transformation for diagnostic tools and biotech research.",
+  [buisness_domains[3]]: "Optimization of supply chain networks and intelligent fleet tracking.",
+  [buisness_domains[4]]: "Secure financial systems, high-frequency trading, and banking infrastructure.",
+  [buisness_domains[5]]: "IIoT implementation and digital twins for smart manufacturing.",
+  [buisness_domains[6]]: "Smart grid management and renewable energy efficiency optimization.",
+  [buisness_domains[7]]: "Precision agriculture software and automated crop monitoring.",
+  [buisness_domains[8]]: "Systems for urban monitoring, sustainability, and green energy management.",
+  [buisness_domains[9]]: "Scalable platforms for omnichannel retail and user experience.",
+  [buisness_domains[10]]: "Enterprise software for team optimization and resource management.",
+  [buisness_domains[11]]: "High-performance streaming, content delivery, and interactive media."
 };
 
-const business_domains_icon_map = {
-  [business_domains[0]]: <IconBuildingFactory size={24} />,
-  [business_domains[1]]: <IconCar size={24} />,
-  [business_domains[2]]: <IconHeartbeat size={24} />,
-  [business_domains[3]]: <IconTruck size={24} />,
-  [business_domains[4]]: <IconCoin size={24} />,
-  [business_domains[5]]: <IconBuildingFactory size={24} />,
-  [business_domains[6]]: <IconBolt size={24} />,
-  [business_domains[7]]: <IconLeaf size={24} />,
-  [business_domains[8]]: <IconWorld size={24} />,
-  [business_domains[9]]: <IconShoppingBag size={24} />,
-  [business_domains[10]]: <IconUsers size={24} />,
-  [business_domains[11]]: <IconDeviceTv size={24} />
+const buisness_domains_icon_map = {
+  [buisness_domains[0]]: <IconBuildingFactory size={24} />,
+  [buisness_domains[1]]: <IconCar size={24} />,
+  [buisness_domains[2]]: <IconHeartbeat size={24} />,
+  [buisness_domains[3]]: <IconTruck size={24} />,
+  [buisness_domains[4]]: <IconCoin size={24} />,
+  [buisness_domains[5]]: <IconBuildingFactory size={24} />,
+  [buisness_domains[6]]: <IconBolt size={24} />,
+  [buisness_domains[7]]: <IconLeaf size={24} />,
+  [buisness_domains[8]]: <IconWorld size={24} />,
+  [buisness_domains[9]]: <IconShoppingBag size={24} />,
+  [buisness_domains[10]]: <IconUsers size={24} />,
+  [buisness_domains[11]]: <IconDeviceTv size={24} />
 };
 
 
@@ -192,7 +192,7 @@ const job_categories_desc_map = {
   [job_categories[1]]: "Bridging the gap between software design and hardware production.",
   [job_categories[2]]: "Building modular, maintainable, and high-performance system architectures.",
   [job_categories[3]]: "Rigorous security audits and system defense implementation.",
-  [job_categories[4]]: "Modernizing outdated codebases while preserving business logic.",
+  [job_categories[4]]: "Modernizing outdated codebases while preserving buisness logic.",
   [job_categories[5]]: "Deep code profiling and system-wide performance tuning.",
   [job_categories[6]]: "Implementing automated pipelines for continuous delivery.",
   [job_categories[7]]: "High-stakes technical problem solving for mission-critical failures.",
@@ -463,7 +463,7 @@ export const buisness_service_info = {
   },
   Validation: {
     hourlyRate: 40,
-    description: "User Acceptance Testing (UAT) and business requirement alignment.",
+    description: "User Acceptance Testing (UAT) and buisness requirement alignment.",
     deliverables: {
       uatSignOff: "UAT Sign-off Document",
       validationChecklist: "Validation Checklist"
@@ -517,20 +517,20 @@ export const buisness_service_info = {
 
 
 
-const buisness_domains_info = {
-  title: "Business Domains",
-  intro: "We bridge the gap between complex engineering and core business value.",
+export const buisness_domains_info = {
+  title: "Buisness Domains",
+  intro: "We bridge the gap between complex engineering and core buisness value.",
   outro: "Strategic alignment is the first step to successful scaling.",
   iconDefault: <IconTargetArrow size={24} />,
   // Creiamo l'array di oggetti direttamente qui
-  items: business_domains.map(domain => ({
+  items: buisness_domains.map(domain => ({
     name: domain,
-    icon: business_domains_icon_map[domain] || <IconTargetArrow size={24} />,
-    desc: business_domains_desc_map[domain] || "Strategic engineering solutions."
+    icon: buisness_domains_icon_map[domain] || <IconTargetArrow size={24} />,
+    desc: buisness_domains_desc_map[domain] || "Strategic engineering solutions."
   }))
 };
 
-const application_domains_info = {
+export const application_domains_info = {
   title: "Application Domains",
   intro: "Targeted expertise across diverse technical landscapes and deployment environments.",
   outro: "Tailored architectural patterns to solve specific domain challenges.",
@@ -543,7 +543,7 @@ const application_domains_info = {
 };
 
 // --- Job Categories Info ---
-const job_categories_info = {
+export const job_categories_info = {
   title: "Job Categories",
   intro: "Specialized roles designed to accelerate your engineering goals.",
   outro: "Empowering your team with high-impact technical expertise.",
@@ -565,10 +565,10 @@ export const consulting_flows_info = [
         id: "START_CONTEXT",
         type: "Initial Setup",
         service_category: "Analysis",
-        description: "The customer defines the Job Description, selects the reference Business Domain and Application Domain.",
-        purpose: "Frame the business context and primary technological constraints.",
+        description: "The customer defines the Job Description, selects the reference Buisness Domain and Application Domain.",
+        purpose: "Frame the buisness context and primary technological constraints.",
         deliverables: [],
-        customer_choices: ["business_domain", "application_domain"],
+        customer_choices: ["buisness_domain", "application_domain"],
         requires_approval: false,
         is_paid: false
       },
@@ -662,7 +662,7 @@ export const consulting_flows_info = [
         description: "The customer defines the Job Description focusing on Non-Functional Requirements (SLAs, Peak Load, Data Volumes).",
         purpose: "Map the corporate ecosystem and infrastructure constraints.",
         deliverables: [],
-        customer_choices: ["business_domain", "application_domain"],
+        customer_choices: ["buisness_domain", "application_domain"],
         requires_approval: false,
         is_paid: false
       },
@@ -765,7 +765,7 @@ export const consulting_flows_info = [
         description: "Provision of secure access to the corporate servers and repositories to be inspected.",
         purpose: "Isolate credentials and map the infrastructure perimeter.",
         deliverables: [],
-        customer_choices: ["business_domain", "application_domain"],
+        customer_choices: ["buisness_domain", "application_domain"],
         requires_approval: false,
         is_paid: false
       },
@@ -870,7 +870,7 @@ export const consulting_flows_info = [
         description: "Immediate provision of log files, memory dumps, and configurations of the servers affected by the critical anomaly.",
         purpose: "Collect evidence of the service disruption in the shortest time possible.",
         deliverables: [],
-        customer_choices: ["business_domain", "application_domain"],
+        customer_choices: ["buisness_domain", "application_domain"],
         requires_approval: false,
         is_paid: false
       },
@@ -878,7 +878,7 @@ export const consulting_flows_info = [
         id: "FREE_CALL",
         type: "Emergency Triage (30 min - FREE)",
         service_category: "Testing",
-        description: "Call to understand bug reproducibility, symptoms encountered, and evaluate the economic impact on corporate business.",
+        description: "Call to understand bug reproducibility, symptoms encountered, and evaluate the economic impact on corporate buisness.",
         purpose: "Identify the initial root cause and define intervention boundaries.",
         deliverables: [],
         customer_choices: ["duration", "payment_method"],
@@ -902,7 +902,7 @@ export const consulting_flows_info = [
         type: "Recovery Strategy Choice",
         service_category: "Integration",
         description: "Presentation of the Root Cause Analysis and proposal of an immediate workaround (temporary solution) or a definitive fix.",
-        purpose: "Allow the customer to decide whether to bring the business back online immediately, postponing optimal code correction.",
+        purpose: "Allow the customer to decide whether to bring the buisness back online immediately, postponing optimal code correction.",
         deliverables: [buisness_service_info.Integration.deliverables.apiConnectionLogs],
         customer_choices: ["Choice between Rapid Workaround or Definitive Solution Development"],
         requires_approval: true,
@@ -972,7 +972,7 @@ export const consulting_flows_info = [
         description: "Inspection of current compilation, packaging, and manual deployment methods implemented by the customer's developers.",
         purpose: "Identify operational inefficiencies and human error risks during release.",
         deliverables: [],
-        customer_choices: ["business_domain", "application_domain"],
+        customer_choices: ["buisness_domain", "application_domain"],
         requires_approval: false,
         is_paid: false
       },
@@ -1084,7 +1084,7 @@ export const consulting_flows_info = [
         description: "Configuration and pairing of performance tracking tools (APM) on an exact copy of the customer's system.",
         purpose: "Obtain an isolated environment suitable for conducting stress-tests without impacting real users.",
         deliverables: [],
-        customer_choices: ["business_domain", "application_domain"],
+        customer_choices: ["buisness_domain", "application_domain"],
         requires_approval: false,
         is_paid: false
       },
@@ -1196,7 +1196,7 @@ export const consulting_flows_info = [
         description: "Granting access credentials to tracking boards (Jira, Linear, DevOps) and the customer's documentation repositories.",
         purpose: "Perform a check of the project's organizational and technical state of the art.",
         deliverables: [],
-        customer_choices: ["business_domain", "application_domain"],
+        customer_choices: ["buisness_domain", "application_domain"],
         requires_approval: false,
         is_paid: false
       },
@@ -1204,7 +1204,7 @@ export const consulting_flows_info = [
         id: "FREE_CALL",
         type: "Discovery Call",
         service_category: "Analysis",
-        description: "Mapping of mandatory business deadlines, budget constraints, and communication issues encountered within the team.",
+        description: "Mapping of mandatory buisness deadlines, budget constraints, and communication issues encountered within the team.",
         purpose: "Frame managerial frictions and define the governance goal.",
         deliverables: [],
         customer_choices: ["duration", "payment_method"],
@@ -1296,7 +1296,7 @@ export const consulting_flows_info = [
   }
 ];
 
-const consulting_info = {
+export const consulting_info = {
   title: "Consulting Service",
   buisness_domains_info: buisness_domains_info,
   application_domains_info: application_domains_info,
@@ -1671,7 +1671,7 @@ function InfoCard({ title, icon, desc }) {
   );
 }
 
-export function BusinessDomainsSection({ data = consulting_info.buisness_domains }) {
+export function BuisnessDomainsSection({ data = consulting_info.buisness_domains }) {
   return (
     <SectionWrapper 
       title={data.title} 
@@ -1728,10 +1728,10 @@ export function JobCategoriesSection({ data = consulting_info.job_categories }) 
 
 
 
-export function ConsultingExplorer({ businessData, appData, jobData }) {
+export function ConsultingExplorer({ buisnessData, appData, jobData }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const slides = [
-    { component: <BusinessDomainsSection data={businessData} /> },
+    { component: <BuisnessDomainsSection data={buisnessData} /> },
     { component: <ApplicationDomainsSection data={appData} /> },
     { component: <JobCategoriesSection data={jobData} /> }
   ];
@@ -1809,8 +1809,8 @@ function getFieldErrors(info) {
   if (info.email !== undefined && info.email !== "" && !emailRegex.test(info.email)) errors.email = "Invalid email format.";
   
   // Validazione Whitelist
-  if (info.business_domain && !ALLOWED_CONSULTING_BOOK_FORM_VALUES.business_domains.includes(info.business_domain)) {
-     errors.business_domain = "Invalid domain.";
+  if (info.buisness_domain && !ALLOWED_CONSULTING_BOOK_FORM_VALUES.buisness_domains.includes(info.buisness_domain)) {
+     errors.buisness_domain = "Invalid domain.";
   }
   if (info.application_domain && !ALLOWED_CONSULTING_BOOK_FORM_VALUES.application_domains.includes(info.application_domain)) {
      errors.application_domain = "Invalid application domain.";
@@ -1847,7 +1847,7 @@ export function BookingFormSection({ id, info = {}, setInfo, onBook, loading }) 
 
   useEffect(() => {
     // 1. Definiamo i valori di default dai nostri array
-    const defaultBusiness = ALLOWED_CONSULTING_BOOK_FORM_VALUES.business_domains[0];
+    const defaultBuisness = ALLOWED_CONSULTING_BOOK_FORM_VALUES.buisness_domains[0];
     const defaultApplication = ALLOWED_CONSULTING_BOOK_FORM_VALUES.application_domains[0];
     const defaultJob = ALLOWED_CONSULTING_BOOK_FORM_VALUES.job_categories[0];
     const defaultDuration = ALLOWED_CONSULTING_BOOK_FORM_VALUES.durations[0];
@@ -1855,7 +1855,7 @@ export function BookingFormSection({ id, info = {}, setInfo, onBook, loading }) 
 
     // 2. Creiamo un oggetto con solo i valori mancanti nell'info attuale
     const updates = {};
-    if (!info.business_domain) updates.business_domain = defaultBusiness;
+    if (!info.buisness_domain) updates.buisness_domain = defaultBuisness;
     if (!info.application_domain) updates.application_domain = defaultApplication;
     if (!info.job_category) updates.job_category = defaultJob;
     if (!info.duration) updates.duration = defaultDuration;
@@ -1897,7 +1897,7 @@ export function BookingFormSection({ id, info = {}, setInfo, onBook, loading }) 
               </Group>
 
               <SimpleGrid cols={2}>
-                <Select label="Business Domain" data={ALLOWED_CONSULTING_BOOK_FORM_VALUES.business_domains} value={info.business_domain} onChange={(val) => handleChange('business_domain', val)} error={formErrors.business_domain} />
+                <Select label="Buisness Domain" data={ALLOWED_CONSULTING_BOOK_FORM_VALUES.buisness_domains} value={info.buisness_domain} onChange={(val) => handleChange('buisness_domain', val)} error={formErrors.buisness_domain} />
                 <Select label="Application Domain" data={ALLOWED_CONSULTING_BOOK_FORM_VALUES.application_domains} value={info.application_domain} onChange={(val) => handleChange('application_domain', val)} error={formErrors.application_domain} />
               </SimpleGrid>
 
@@ -1929,8 +1929,8 @@ function validateBookingData(info) {
   if (!info.date) return "Please select a date and time for the consultation.";
   
   // Correzione nomi (usa i plurali definiti in ALLOWED_CONSULTING_BOOK_FORM_VALUES)
-  if (!ALLOWED_CONSULTING_BOOK_FORM_VALUES.business_domains.includes(info.business_domain)) {
-    return "Please select a valid business domain.";
+  if (!ALLOWED_CONSULTING_BOOK_FORM_VALUES.buisness_domains.includes(info.buisness_domain)) {
+    return "Please select a valid buisness domain.";
   }
   
   if (!ALLOWED_CONSULTING_BOOK_FORM_VALUES.application_domains.includes(info.application_domain)) {
@@ -1981,6 +1981,20 @@ export default function Lessons() {
     duration: '1h',
     payment: 'pay-later'
   });
+
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      // Aspetta un piccolissimo delay per essere sicuri che il DOM sia pronto
+      setTimeout(() => {
+        const element = document.getElementById(hash.replace('#', ''));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100); 
+    }
+  }, [hash]);
 
 
   async function handleFormSubmit() {
@@ -2188,7 +2202,7 @@ export default function Lessons() {
       <HeroSection />
       <div className="max-w-7xl mx-auto px-6 py-16 space-y-20">
         <ConsultingInfoSection buisness_domains_info={buisness_domains_info} application_domains_info={application_domains_info} job_categories_info={job_categories_info}/>
-        <ConsultingExplorer businessData={buisness_domains_info} appData={application_domains_info} jobData={job_categories_info}/>
+        <ConsultingExplorer buisnessData={buisness_domains_info} appData={application_domains_info} jobData={job_categories_info}/>
         <ModelsSection data={models_info}/>
         <ConsultingProcessSection/>
         
@@ -2263,7 +2277,7 @@ export function LicensingSection() {
                 description="Turnkey solution for internal enterprise operations."
                 points={[
                   "Delivery: Executable binaries or Docker containers.",
-                  "Restriction: For internal business use only. Redistribution is strictly prohibited.",
+                  "Restriction: For internal buisness use only. Redistribution is strictly prohibited.",
                   "Ownership: Source code remains my property."
                 ]}
               />
@@ -2275,8 +2289,8 @@ export function LicensingSection() {
                 description="Best for auditability and long-term control of your internal tools."
                 points={[
                   "Delivery: Full access to the source code repository.",
-                  "Restriction: 'The Client is granted a non-exclusive license for internal business operations. Any distribution, resale, or sub-licensing to third parties is strictly prohibited.'",
-                  "Ownership: IP of custom business logic is yours; proprietary modules remain mine."
+                  "Restriction: 'The Client is granted a non-exclusive license for internal buisness operations. Any distribution, resale, or sub-licensing to third parties is strictly prohibited.'",
+                  "Ownership: IP of custom buisness logic is yours; proprietary modules remain mine."
                 ]}
               />
             </Tabs.Panel>
@@ -2299,7 +2313,7 @@ export function LicensingSection() {
                 description="The safety-first balance between your control and my IP protection."
                 points={[
                   "Process: Source code deposited with a neutral third-party agent.",
-                  "Trigger Clause: Release only if I cease business operations or support.",
+                  "Trigger Clause: Release only if I cease buisness operations or support.",
                   "Restriction: No code access during active service term."
                 ]}
               />
@@ -2325,7 +2339,7 @@ export function LicensingSection() {
           <Text size="sm" c="gray.7" lh={1.6}>
             You might have heard of licenses like <b>MIT, Apache, or BSD</b>. These are "Public Licenses" intended for code released to the general public, where anyone can freely use, modify, and resell your work.
             <br /><br />
-            For custom business solutions, we utilize <b>Proprietary Development Agreements (SDA)</b>. This ensures that the intellectual property is handled as a private business asset, tailored specifically to your security and commercial needs, rather than being released into the public domain.
+            For custom buisness solutions, we utilize <b>Proprietary Development Agreements (SDA)</b>. This ensures that the intellectual property is handled as a private buisness asset, tailored specifically to your security and commercial needs, rather than being released into the public domain.
           </Text>
         </Paper>
 
@@ -2341,7 +2355,7 @@ export function LicensingSection() {
               text="Applicable to Usage & SaaS models. It prohibits reverse engineering and unauthorized redistribution, ensuring the software is used strictly as a service." />
             
             <AgreementCard title="Software Development Agreement (SDA)" 
-              text="Applicable to Internal Source models. Includes a 'Restricted Field of Use' clause, legally limiting the software to your core business operations and forbidding commercial resale." />
+              text="Applicable to Internal Source models. Includes a 'Restricted Field of Use' clause, legally limiting the software to your core buisness operations and forbidding commercial resale." />
             
             <AgreementCard title="IP Assignment & Buy-out Agreement" 
               text="Applicable to Full Buy-out. A definitive legal act transferring total ownership of the asset from the developer to you." />
@@ -2414,7 +2428,7 @@ export function HeroSection() {
             <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="xl">
               <Stack gap="xs">
                 <Text fw={700}>1. Context Mapping</Text>
-                <Text size="sm" c="dimmed">Choose your <b>Business Domain</b> and <b>Application Domain</b>. This aligns our discussion with your specific industry standards and technical environment.</Text>
+                <Text size="sm" c="dimmed">Choose your <b>Buisness Domain</b> and <b>Application Domain</b>. This aligns our discussion with your specific industry standards and technical environment.</Text>
               </Stack>
               <Stack gap="xs">
                 <Text fw={700}>2. Select Your Role</Text>
@@ -2657,7 +2671,7 @@ export function ConsultingInfoSection({ buisness_domains_info, application_domai
   // Prepariamo i dati dei tab
   const consultingSections = [
     { 
-      label: "Business Domains",
+      label: "Buisness Domains",
       title: buisness_domains_info.title, 
       data: buisness_domains_info.items, 
       icon: <IconTargetArrow size={24} /> 
@@ -2721,7 +2735,7 @@ export function ConsultingInfoSection({ buisness_domains_info, application_domai
                 <Title order={3}>Availability</Title>
               </Group>
 
-              <Text fw={700} size="sm" mb="xs">Business Hours</Text>
+              <Text fw={700} size="sm" mb="xs">Buisness Hours</Text>
               <Stack gap="sm" mb="xl">
                 <Group>
                   <IconCalendar size={18} color="gray" />
@@ -2736,7 +2750,7 @@ export function ConsultingInfoSection({ buisness_domains_info, application_domai
               <Divider my="md" />
               
               <Text size="xs" c="dimmed" fs="italic">
-                * All requests received outside of business hours will be processed on the following working day.
+                * All requests received outside of buisness hours will be processed on the following working day.
               </Text>
             </Paper>
 
@@ -2857,12 +2871,12 @@ export function AvailabilitySection({ onSlotSelect }) {
 
   return (
     <section className="section-box">
-      <Title order={2} ta="center" mb={50}>Business Hours & Consulting Schedules</Title>
+      <Title order={2} ta="center" mb={50}>Buisness Hours & Consulting Schedules</Title>
       {/* ORARI E GIORNI */}
       <Card withBorder radius="xl" p="xl" shadow="sm">
         <Group mb="md">
           <ThemeIcon color="blue" size={40} radius="md"><IconClock size={24} /></ThemeIcon>
-          <Text fw={700} fz="lg">Business Hours</Text>
+          <Text fw={700} fz="lg">Buisness Hours</Text>
         </Group>
         
         <Stack gap="md">
@@ -2877,7 +2891,7 @@ export function AvailabilitySection({ onSlotSelect }) {
           <Divider />
           <Text size="sm" c="dimmed">
             <IconInfoCircle size={14} style={{ marginRight: 5 }} />
-            Unavailable on weekends and public holidays. All requests received outside these hours will be processed on the next business day.
+            Unavailable on weekends and public holidays. All requests received outside these hours will be processed on the next buisness day.
           </Text>
         </Stack>
       </Card>
@@ -3602,10 +3616,39 @@ export function ResourcesSection({ lessonsTree }) {
   
 
 
-
 const ActionPanel = ({ item, type }) => {
+  // Risolve l'URL di base a seconda che tu usi Create React App o Vite
+  const baseUrl = process.env.PUBLIC_URL || import.meta.env?.BASE_URL || '';
+  const cleanBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+
+  // Funzione universale per forzare il download nel browser
+  const triggerDownload = (url, fileName) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleCopy = () => {
-    navigator.clipboard.writeText(window.location.origin + item.path);
+    // Costruisce il link completo di produzione da copiare negli appunti
+    const fullUrl = window.location.origin + cleanBase + (item.path.startsWith('/') ? item.path.slice(1) : item.path);
+    navigator.clipboard.writeText(fullUrl);
+    // Opzionale: aggiungi un piccolo feedback visivo o un alert di successo qui
+  };
+
+  const handleDownloadRaw = () => {
+    // Rimuove lo slash iniziale se presente per evitare doppi slash con cleanBase
+    const cleanPath = item.path.startsWith('/') ? item.path.slice(1) : item.path;
+    const fileUrl = `${cleanBase}${cleanPath}`;
+    const fileName = item.name || cleanPath.split('/').pop();
+    
+    triggerDownload(fileUrl, fileName);
+  };
+
+  const handleDownloadZip = () => {
+    handleDownloadRaw(); 
   };
 
   return (
@@ -3613,16 +3656,18 @@ const ActionPanel = ({ item, type }) => {
       <ActionIcon variant="subtle" color="gray" title="Copy Link" onClick={handleCopy}>
         <IconLink size={16} />
       </ActionIcon>
-      <ActionIcon variant="subtle" color="blue" title="Download Raw" onClick={() => console.log('Raw:', item.path)}>
+      
+      {/* Ora scarica il file reale invece di fare solo il console.log */}
+      <ActionIcon variant="subtle" color="blue" title="Download Raw" onClick={handleDownloadRaw}>
         <IconDownload size={16} />
       </ActionIcon>
-      <ActionIcon variant="subtle" color="green" title="Download ZIP" onClick={() => console.log('ZIP:', item.path)}>
+      
+      <ActionIcon variant="subtle" color="green" title="Download ZIP" onClick={handleDownloadZip}>
         <IconFileZip size={16} />
       </ActionIcon>
     </Group>
   );
 };
-
 
 const getStatsForNode = (node) => {
   // Se è un file, le sue stats sono fisse

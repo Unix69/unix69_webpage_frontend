@@ -6,6 +6,7 @@ const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
 export default class Repository {
   constructor(data = {}) {
+    
     this.id = data.id || uuidv4();
     this.name = data.name || "unknown";
     this.fullName = data.full_name || "";
@@ -16,7 +17,10 @@ export default class Repository {
     this.ownerUrl = data.owner?.html_url || "";
     this.ownerAvatar = data.owner?.avatar_url || "";
 
-    this.license = data.license?.name || "MIT";
+    this.size = data.size || 0;
+    this.license = data.license?.name || null;
+    this.hasReadme = false;
+
     this.visibility = data.private ? "private" : "public";
     this.status = data.archived ? "archived" : data.fork ? "fork" : "active";
 
@@ -58,24 +62,26 @@ export default class Repository {
 
   // Fetch dei linguaggi
   async fetchLanguages(signal) {
+    const token = process.env.REACT_APP_GITHUB_TOKEN;
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
     const res = await fetch(`https://api.github.com/repos/${this.fullName}/languages`, {
       signal,
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`
-      }
+      headers: headers
     });
     if (!res.ok) throw new Error(`Cannot fetch languages: ${res.status}`);
     const data = await res.json();
     this.languages = Object.keys(data);
   }
 
-  // Fetch dei contributors
+  // Sostituisci fetchContributors
   async fetchContributors(signal) {
+    const token = process.env.REACT_APP_GITHUB_TOKEN;
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
     const res = await fetch(`https://api.github.com/repos/${this.fullName}/contributors`, {
       signal,
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`
-      }
+      headers: headers
     });
     if (!res.ok) return;
     const data = await res.json();
@@ -86,26 +92,27 @@ export default class Repository {
     }));
   }
 
-  // Fetch dei pull requests aperti
+  // Sostituisci fetchPullRequests
   async fetchPullRequests(signal) {
+    const token = process.env.REACT_APP_GITHUB_TOKEN;
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
     const res = await fetch(`https://api.github.com/repos/${this.fullName}/pulls?state=open`, {
       signal,
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`
-      }
+      headers: headers
     });
     if (!res.ok) return;
     const data = await res.json();
     this.pullRequests = data.length;
   }
 
-  // STATIC fetch tutte le repos
+  // Sostituisci il metodo statico fetchAllByUsername
   static async fetchAllByUsername(username, signal) {
+    const token = process.env.REACT_APP_GITHUB_TOKEN;
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
     const res = await fetch(`https://api.github.com/users/${username}/repos`, {
       signal,
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`
-      }
+      headers: headers
     });
     if (!res.ok) throw new Error(`Cannot fetch repos: ${res.status}`);
     const reposData = await res.json();
@@ -115,10 +122,18 @@ export default class Repository {
         const repo = new Repository(data);
 
         try {
-          console.log(process.env.REACT_APP_GITHUB_TOKEN);
-          await repo.fetchLanguages(signal);
-          await repo.fetchContributors(signal);
-          await repo.fetchPullRequests(signal);
+          // Avviamo i fetch paralleli dei metadati mancanti
+          await Promise.all([
+            repo.fetchLanguages(signal),
+            repo.fetchContributors(signal),
+            repo.fetchPullRequests(signal),
+            // Controllo rapido esistenza README tramite header API senza scaricare tutto il testo
+            fetch(`https://api.github.com/repos/${repo.fullName}/readme`, { headers, signal })
+              .then(readmeRes => {
+                repo.hasReadme = readmeRes.ok; // true se 200 OK, false se 404
+              })
+              .catch(() => repo.hasReadme = false)
+          ]);
         } catch (err) {
           console.warn("Error fetching metadata:", repo.fullName, err);
         }
